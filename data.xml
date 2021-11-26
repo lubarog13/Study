@@ -1,0 +1,29 @@
+xmlData: <?xml version="1.0" encoding="UTF-8"?>
+<Record>
+   <Name>Masha</Name>
+   <Surname>Rogozina</Surname>
+   <Tel>
+      <Mobile>true</Mobile>
+      <Number>123456789</Number>
+   </Tel>
+   <Tel>
+      <Mobile>false</Mobile>
+      <Number>567890</Number>
+   </Tel>
+</Record>
+lubarog13@lubarog13-VivoBook-ASUSLaptop-X513EA-F513EA:~/VS_code/codes/Study$ go run rwXML.go readMe1.json
+JSON: {Liubov Rogozina [{true 123456789} {false 567890}]}
+
+xmlData: <?xml version="1.0" encoding="UTF-8"?>
+<Record>
+   <Name>Masha</Name>
+   <Surname>Rogozina</Surname>
+   <Tel>
+      <Mobile>true</Mobile>
+      <Number>123456789</Number>
+   </Tel>
+   <Tel>
+      <Mobile>false</Mobile>
+      <Number>567890</Number>
+   </Tel>
+</Record>
