@@ -9,19 +9,24 @@ import (
 	"fyne.io/fyne/layout"
 	"fyne.io/fyne/widget"
 	_ "github.com/go-sql-driver/mysql"
+	"gopkg.in/guregu/null.v3"
 )
 
 type Material struct {
-	id           int
-	title        string
-	countInPack  int
-	unit         string
-	countInStock sql.NullFloat64
-	minCount     float64
-	description  sql.NullString
-	cost         float32
-	image        sql.NullString
-	materialType string
+	Id           int         `json:"id"`
+	Title        string      `json:"title"`
+	CountInPack  int         `json:"countInPack"`
+	Unit         string      `json:"unit"`
+	CountInStock null.Float  `json:"-"`
+	MinCount     float64     `json:"minCount"`
+	Description  null.String `json:"-"`
+	Cost         float32     `json:"cost"`
+	Image        null.String `json:"-"`
+	MaterialType string      `json:"materialType"`
+}
+
+type res struct {
+	Price float64 `json:"price"`
 }
 
 func main() {
@@ -38,7 +43,7 @@ func main() {
 	materials := []Material{}
 	for rows.Next() {
 		m := Material{}
-		err := rows.Scan(&m.id, &m.title, &m.countInPack, &m.unit, &m.countInStock, &m.minCount, &m.description, &m.cost, &m.image, &m.materialType)
+		err := rows.Scan(&m.Id, &m.Title, &m.CountInPack, &m.Unit, &m.CountInStock, &m.MinCount, &m.Description, &m.Cost, &m.Image, &m.MaterialType)
 		if err != nil {
 			fmt.Println(err)
 			continue
@@ -53,8 +58,8 @@ func main() {
 
 	labels := []fyne.CanvasObject{}
 	for _, m := range materials {
-		fmt.Println(m.id, m.title, m.countInPack, m.unit, m.countInStock.Float64, m.minCount, m.description.String, m.cost, m.image.String, m.materialType)
-		labels = append(labels, widget.NewLabel(fmt.Sprintln(m.id, m.title, m.countInPack, m.unit, m.countInStock.Float64, m.minCount, m.description.String, m.cost, m.image.String, m.materialType)))
+		fmt.Println(m.Id, m.Title, m.CountInPack, m.Unit, m.CountInStock.Float64, m.MinCount, m.Description.String, m.Cost, m.Image.String, m.MaterialType)
+		labels = append(labels, widget.NewLabel(fmt.Sprintln(m.Id, m.Title, m.CountInPack, m.Unit, m.CountInStock.Float64, m.MinCount, m.Description.String, m.Cost, m.Image.String, m.MaterialType)))
 	}
 	vBox.Append(widget.NewButton("Закрыть", func() {
 		app.Quit()
