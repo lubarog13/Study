@@ -1,0 +1,188 @@
+.container {
+    margin: 0 auto;
+    max-width: 810px;
+    width: 100%;
+}
+
+body {
+    background: whitesmoke;
+}
+
+.tour {
+    display: flex;
+    background: white;
+    width: 681px;
+}
+
+.tour__photo-wrapper {
+    flex: 0 0 316px;
+    height: 459px;
+}
+
+.tour__photo {
+    height: 100%;
+}
+
+.tour__main {
+    display: block;
+    padding: 42px 34px 39px 38px;
+    width: 100%;
+    font-family: "Open Sans";
+}
+
+.tour__name {
+    font-weight: 700;
+    color: #004EBB;
+    font-size: 24px;
+    margin: 0;
+}
+
+.tour__rating {
+    margin-top: 26px;
+    width: 100%;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+}
+
+.rating__stars {
+    color: #FFE600;
+    width: 90px;
+    height: 15px;
+    display: flex;
+}
+
+
+
+.rating__reviews {
+    margin-left: 13px;
+    font-weight: 400;
+    color: #AAAAAA;
+    font-size: 13px;
+}
+
+.rating__add {
+    font-weight: 400;
+    color: #AAAAAA;
+    font-size: 13px;
+    text-decoration: none;
+    padding-left: 5px;
+}
+
+.tour__info {
+    margin-top: 41px;
+}
+
+.tour__info :last-child {
+    border-bottom: none;
+}
+
+.tour__info-line {
+    display: flex;
+    border-bottom: 1px solid #E5E5E5;
+    padding-top: 8px;
+}
+
+.tour__info-label {
+    font-size: 14px;
+    font-weight: 600;
+    flex: 1;
+}
+
+.tour__info-value {
+    font-size: 13px;
+    font-weight: 400;
+    flex: 1;
+}
+
+.tour__cost {
+    color: #206D85;
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 35px;
+    margin-bottom: 0;
+}
+
+.tour__sale {
+    display: flex;
+    margin-top: 8px;
+    width: 80%;
+}
+
+.tour__sale-old {
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration:line-through;
+    flex: 1;
+}
+
+.tour__sale-value {
+    color:  #009F23;
+    font-weight: 400;
+    font-size: 12px;
+    flex: 1;
+}
+
+.tour__actions {
+    margin-top: 43px;
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+}
+
+.actions__buy {
+    flex: 1;
+}
+
+.actions__buy-btn {
+    width: 105px;
+    height: 34px;
+    background: #5B92DF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.actions__social {
+    flex: 1;
+    display: flex;
+}
+
+.actions__social > * {
+    margin-left: 8px;
+}
+
+.actions__social-facebook {
+    background: #3B5998;
+    color: #3B5998;
+    border-radius: 20px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actions__social-facebook i {
+    color: white;
+}
+
+.actions__social-instagram {
+    background: linear-gradient(180deg, #4400DD 0%, #5851DB 20.31%, #8833AA 36.98%, #C13584 56.25%, #E1306C 78.12%, #FD1D1D 100%);
+    -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.actions__social-telegram {
+    color:     #40B3E0;
+}
+
+.fa-xl {
+    font-size: 24px;
+}
