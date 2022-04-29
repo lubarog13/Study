@@ -18,7 +18,7 @@
             <vue-editor :editorOptions="editorSettings" v-model="blogHTML" useCustomImageHandler @image-added="imageHandler" />
         </div>
         <div class="blog-actions">
-            <button>Publish Blog</button>
+            <button @click="uploadBlog">Publish Blog</button>
             <router-link :to="{name: 'BlogPreview'}" class="router-button"> Post Preview</router-link>
         </div>
     </div>
@@ -33,6 +33,7 @@ const ImageResize = require("quill-image-resize-module").default;
 Quill.register("modules/imageResize", ImageResize);
 import firebase from "firebase/app"
 import "firebase/storage"
+import db from "../firebase/firebaseInit";
     export default {
   components: { BlogCoverPreview },
         name: "CreatePost",
@@ -75,6 +76,14 @@ import "firebase/storage"
                     resetUploader();
                     }
                 );
+            },
+            uploadBlog() {
+                if (this.blogTitle.length !== 0 && this.blogHTML !== 0) {
+                    
+                    return
+                }
+                this.error = true
+                this.errorMsg = "Please ensure Blog Title & Blog Post has been filled!"
             }
         },
         computed: {
