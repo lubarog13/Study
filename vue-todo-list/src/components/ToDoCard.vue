@@ -1,12 +1,12 @@
 <template>
-<div class="card">
-  <h3>{{content.name}}</h3>
+<b-card class="card">
+  <b-card-title>{{content.name}}</b-card-title>
     <b-row class="card__settings">
     <b-col><div class="card__type"><div class="dot" :style="{background: color}"/><div>{{type}}</div></div> </b-col>
     <b-col>{{date}}</b-col>
     <b-col>{{time}}</b-col>
   </b-row>
-</div>
+</b-card>
 </template>
 
 <script>
@@ -66,10 +66,9 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   width: 90%;
-  height: 100px;
-  padding: 15px 9px 7px 10px;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
   font-family: 'Open Sans';
-  h3 {
+  h4 {
     font-style: normal;
     font-weight: 400;
     font-size: 14px;

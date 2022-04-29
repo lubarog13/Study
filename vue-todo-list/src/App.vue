@@ -1,15 +1,18 @@
 <template>
   <div id="app">
+    <navigation/>
     <cards-page/>
   </div>
 </template>
 
 <script>
 import CardsPage from "@/pages/CardsPage";
+import Navigation from "@/components/Navigation";
 
 export default {
   name: 'App',
   components: {
+    Navigation,
     CardsPage,
   }
 }
@@ -22,6 +25,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #333333;
   overflow-x: hidden;
-  margin-top: 60px;
+  height: 100%;
+}
+body, html {
+  height: 100%;
+  margin: 0;
 }
 </style>
