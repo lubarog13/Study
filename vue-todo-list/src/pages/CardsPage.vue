@@ -101,6 +101,8 @@ export default {
 .cards_page {
   position: relative;
   height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
    h2 {
     background: #FFFFFF;
     border: 1px solid #D6D6D6;
@@ -116,7 +118,6 @@ export default {
     padding: 6px 0;
   }
   .cards_content {
-    background: #eeeeee;
     height: 100%;
     .cards__col {
       border-right: 1px solid #9B9A9A;

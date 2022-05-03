@@ -1,19 +1,31 @@
 <template>
   <div id="app">
     <navigation/>
+    <splitpanes horizontal>
+      <pane>
     <cards-page/>
+      </pane>
+      <pane>
+    <bottom-panel/>
+      </pane>
+    </splitpanes>
   </div>
 </template>
 
 <script>
 import CardsPage from "@/pages/CardsPage";
 import Navigation from "@/components/Navigation";
+import BottomPanel from "@/components/BottomPanel";
+import { Splitpanes, Pane } from 'splitpanes'
+import 'splitpanes/dist/splitpanes.css'
 
 export default {
   name: 'App',
   components: {
+    BottomPanel,
     Navigation,
     CardsPage,
+    Splitpanes, Pane
   }
 }
 </script>
@@ -25,7 +37,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #333333;
   overflow-x: hidden;
+  position: relative;
+  background: #eeeeee;
   height: 100%;
+  .splitpanes__splitter {
+    height: 4px;
+  }
+  .splitpanes__pane:last-child {
+    background: white;
+    border-radius: 20px;
+  }
 }
 body, html {
   height: 100%;
