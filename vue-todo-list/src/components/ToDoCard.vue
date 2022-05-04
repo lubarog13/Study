@@ -50,7 +50,7 @@ export default {
       return this.content.date.toLocaleDateString();
     },
     time() {
-      return moment(this.content.date).format("HH:MM")
+      return moment(this.content.date).format("HH:mm")
     }
   },
   methods: {

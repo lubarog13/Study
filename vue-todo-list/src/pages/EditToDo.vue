@@ -1,6 +1,6 @@
 <template>
 <div class="todo_form">
-  <b-form @submit="onSubmit" @reset="reset">
+  <b-form @submit="onSubmit" @reset="onReset">
     <b-row>
       <b-col>
         <b-form-group
@@ -83,8 +83,9 @@
         </b-row>
       </b-col>
     </b-row>
-    <b-button type="submit" variant="dark">Добавить</b-button>
+    <b-button type="submit" variant="dark">Сохранить</b-button>
     <b-button type="reset" variant="secondary">Очистить</b-button>
+    <b-button type="button" variant="light" @click="$emit('back', 0)">Назад</b-button>
   </b-form>
 
 </div>
@@ -92,9 +93,11 @@
 
 <script>
 import {db} from "@/firebase";
+import moment from "moment";
 
 export default {
-  name: "AddToDo",
+  name: "EditToDo",
+  props: ['todo'],
   data() {
     return {
       form: {
@@ -109,23 +112,31 @@ export default {
   methods:{
      onSubmit(event) {
        this.form.date = new Date(this.form.date+ " " + this.time)
-       this.form.progress = "open"
+       this.form.progress = this.todo.progress
        event.preventDefault()
-      db.collection("todo").add(this.form).then(() => {
+      db.collection("todo").doc(this.todo.id).update(this.form).then(() => {
         event.stopPropagation()
-        this.$emit('added', '')
+        this.$emit('updated', '')
         }).catch(err => {
           console.log(err)
         event.stopPropagation()
         })
     },
-    reset() {
-      this.form.name = ""
-      this.form.description = ""
-      this.form.type = ""
-      this.form.date = ""
-      this.time = ""
+    onReset(event) {
+       event.preventDefault()
+      this.form.name = this.todo.name
+      this.form.description = this.todo.description
+      this.form.date = moment(this.todo.date).format("YYYY-MM-DD")
+      this.form.type = this.todo.type
+      this.time = moment(this.todo.date).format("HH:MM")
     }
+  },
+  mounted() {
+    this.form.name = this.todo.name
+    this.form.description = this.todo.description
+    this.form.date = moment(this.todo.date).format("YYYY-MM-DD")
+    this.form.type = this.todo.type
+    this.time = moment(this.todo.date).format("HH:MM")
   }
 }
 </script>

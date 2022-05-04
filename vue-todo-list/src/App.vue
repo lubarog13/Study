@@ -62,4 +62,12 @@ body, html {
   height: 100%;
   margin: 0;
 }
+@keyframes moveIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 </style>

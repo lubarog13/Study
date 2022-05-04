@@ -9,15 +9,21 @@
       {{todo.description}}
     </div>
     <div class="details__action">
-      <b-button  variant="dark">Редактировать</b-button>
+      <b-button  variant="dark" @click="$emit('edit', 0)">Редактировать</b-button>
       <b-button  variant="light" @click="$emit('back', 0)">Назад</b-button>
-      <b-button pill variant="danger" class="delete_action"><b-icon icon="trash"></b-icon> </b-button>
+      <b-button pill variant="danger" class="delete_action" v-b-modal.my-modal ><b-icon icon="trash"></b-icon> </b-button>
     </div>
+    <b-modal id="my-modal" title="Уделение задачи" @ok="deleteToDo">
+      <div class="d-block text-center">
+        <h3>Вы действительно хотите удалить задачу?</h3>
+      </div>
+    </b-modal>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import {db} from "@/firebase";
 
 export default {
   name: "ToDoDetails",
@@ -69,12 +75,22 @@ export default {
           return 'Сделано'
       }
     }
+  },
+  methods: {
+    deleteToDo() {
+      db.collection("todo").doc(this.todo.id).delete().then(() => {
+        this.$emit('back', 0)
+      }).catch(err => {
+        console.log(err)
+      })
+    },
   }
 }
 </script>
 
 <style lang="less" scoped>
 .details {
+  animation: 1s moveIn ease-out;
   margin-left: 40px;
   h4 {
     display: flex;
@@ -120,6 +136,14 @@ export default {
       height: 40px;
       padding: 0;
     }
+  }
+}
+</style>
+<style lang="less">
+.text-center {
+  h3 {
+    font-size: 20px;
+    margin: 20px 40px;
   }
 }
 </style>

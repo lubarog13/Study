@@ -7,7 +7,8 @@
       <b-button @click="changeAction('add')" variant="danger"> <b-icon icon="plus" animation="throb"></b-icon> Добавить</b-button >
     </div>
     <add-to-do v-if="action==='add'" @added="changeAction"/>
-    <to-do-details v-if="action==='edit'" :todo="value" @back="clear"/>
+    <to-do-details v-if="action==='details'" :todo="value" @back="clear" @edit="changeAction('edit')"/>
+    <edit-to-do v-if="action==='edit'" :todo="value" @back="changeAction('details')"/>
   </div>
 </div>
 </template>
@@ -15,10 +16,11 @@
 <script>
 import AddToDo from "@/pages/AddToDo";
 import ToDoDetails from "@/pages/ToDoDetails";
+import EditToDo from "@/pages/EditToDo";
 export default {
   props: ["value"],
   name: "BottomPanel",
-  components: {ToDoDetails, AddToDo},
+  components: {EditToDo, ToDoDetails, AddToDo},
   data() {
     return {
       action: ''
@@ -36,7 +38,7 @@ export default {
   watch: {
     value(newVal) {
       if(newVal!==null) {
-        this.action='edit'
+        this.action='details'
       }
     }
   }
@@ -67,6 +69,7 @@ export default {
       display: flex;
       align-self: center;
       margin-top: 50px;
+      animation: 2s moveIn ease-in-out;
       h1 {
         font-family: 'Comfortaa';
         color: #0c1a52;
