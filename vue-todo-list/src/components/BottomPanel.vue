@@ -1,21 +1,24 @@
 <template>
 <div class="bottom_panel">
-  <b-icon icon="dash-lg"></b-icon>
+  <b-icon icon="dash-lg" class="icon"></b-icon>
   <div class=" content">
     <div class="default_page" v-if="action===''">
       <h1>To Do List</h1>
       <b-button @click="changeAction('add')" variant="danger"> <b-icon icon="plus" animation="throb"></b-icon> Добавить</b-button >
     </div>
     <add-to-do v-if="action==='add'" @added="changeAction"/>
+    <to-do-details v-if="action==='edit'" :todo="value" @back="clear"/>
   </div>
 </div>
 </template>
 
 <script>
 import AddToDo from "@/pages/AddToDo";
+import ToDoDetails from "@/pages/ToDoDetails";
 export default {
+  props: ["value"],
   name: "BottomPanel",
-  components: {AddToDo},
+  components: {ToDoDetails, AddToDo},
   data() {
     return {
       action: ''
@@ -24,6 +27,17 @@ export default {
   methods: {
     changeAction(action) {
       this.action = action
+    },
+    clear() {
+      this.$emit('input', null)
+      this.action = ''
+    }
+  },
+  watch: {
+    value(newVal) {
+      if(newVal!==null) {
+        this.action='edit'
+      }
     }
   }
 }
@@ -40,7 +54,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  svg {
+  .icon {
     margin-bottom: 20px;
   }
   .content {

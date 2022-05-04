@@ -3,10 +3,10 @@
     <navigation/>
     <splitpanes horizontal>
       <pane>
-    <cards-page/>
+    <cards-page @selected="setSelectedItem"/>
       </pane>
       <pane>
-    <bottom-panel/>
+    <bottom-panel v-model="selected_item"/>
       </pane>
     </splitpanes>
   </div>
@@ -26,6 +26,16 @@ export default {
     Navigation,
     CardsPage,
     Splitpanes, Pane
+  },
+  data() {
+    return {
+      selected_item: null
+    }
+  },
+  methods: {
+    setSelectedItem(item) {
+      this.selected_item = item
+    }
   }
 }
 </script>

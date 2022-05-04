@@ -5,7 +5,7 @@
       <h2>Открыто</h2>
       <draggable :animation="200" class="draggable-list" v-model="opened" group="my-group">
         <transition-group>
-      <to-do-card v-for="(card) in opened" :key="card.id" :content="card">
+      <to-do-card @selected="select" v-for="(card) in opened" :key="card.id" :content="card">
       </to-do-card>
         </transition-group>
       </draggable>
@@ -14,7 +14,7 @@
       <h2>В процессе</h2>
       <draggable :animation="200" class="draggable-list" v-model="inProgress" group="my-group" >
         <transition-group>
-          <to-do-card v-for="(card) in inProgress" :key="card.id" :content="card"></to-do-card>
+          <to-do-card @selected="select" v-for="(card) in inProgress" :key="card.id" :content="card"></to-do-card>
         </transition-group>
       </draggable>
     </b-col>
@@ -22,7 +22,7 @@
       <h2>Сделано</h2>
       <draggable :animation="200" class="draggable-list" v-model="complete" group="my-group">
         <transition-group>
-          <to-do-card v-for="(card) in complete" :key="card.id" :content="card"></to-do-card>
+          <to-do-card @selected="select" v-for="(card) in complete" :key="card.id" :content="card"></to-do-card>
         </transition-group>
       </draggable>
     </b-col>
@@ -68,6 +68,11 @@ export default {
       val.progress = "complete"
       db.collection("todo").doc(val.id).update(val)
     },
+  },
+  methods: {
+    select(item) {
+      this.$emit('selected', item)
+    }
   },
   created() {
     db.collection('todo').onSnapshot((snapshotChange) => {

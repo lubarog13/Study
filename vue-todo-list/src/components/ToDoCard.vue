@@ -1,5 +1,5 @@
 <template>
-<b-card class="card">
+<b-card class="card" @click="select">
   <b-card-title>{{content.name}}</b-card-title>
     <b-row class="card__settings">
     <b-col><div class="card__type"><div class="dot" :style="{background: color}"/><div>{{type}}</div></div> </b-col>
@@ -51,6 +51,11 @@ export default {
     },
     time() {
       return moment(this.content.date).format("HH:MM")
+    }
+  },
+  methods: {
+    select() {
+      this.$emit("selected", this.content)
     }
   }
 }
