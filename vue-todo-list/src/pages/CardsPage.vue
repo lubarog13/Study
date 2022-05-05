@@ -1,5 +1,6 @@
 <template>
 <div class="cards_page">
+  <Particles id="tsparticles" :options="particlesConfig"/>
   <b-row class="cards_content" v-if="hasData">
     <b-col class="cards__col">
       <h2>Открыто</h2>
@@ -35,11 +36,13 @@
 import ToDoCard from "@/components/ToDoCard";
 import draggable from "vuedraggable"
 import {db} from "@/firebase";
+import particlesConfig from "../assets/particles.json";
 export default {
   name: "CardsPage",
   components: {ToDoCard, draggable},
   data() {
     return {
+        particlesConfig,
         opened: [],
         inProgress: [],
         complete: [],
@@ -109,6 +112,7 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
    h2 {
+     z-index: 1;
     background: #FFFFFF;
     border: 1px solid #D6D6D6;
     box-sizing: border-box;
@@ -156,5 +160,14 @@ export default {
     width: 50px;
     height: 50px;
   }
+}
+#tsparticles {
+  position: fixed;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>

@@ -47,6 +47,7 @@ export default {
 
 <style lang="less" scoped>
 .bottom_panel {
+  z-index: 1;
   bottom: 0;
   width: 100%;
   background: white;

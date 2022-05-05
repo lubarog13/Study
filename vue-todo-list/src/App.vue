@@ -46,16 +46,17 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #333333;
-  overflow-x: hidden;
   position: relative;
   background: #eeeeee;
   height: 100%;
   .splitpanes__splitter {
     height: 4px;
+    z-index: 1;
   }
   .splitpanes__pane:last-child {
     background: white;
     border-radius: 20px;
+    z-index: 1;
   }
 }
 body, html {

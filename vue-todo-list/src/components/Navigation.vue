@@ -35,6 +35,7 @@ export default {
 }
 .navbar {
   padding: 0.2rem 40px;
+  z-index: 1;
   background-color: #122a86 !important;
   margin-bottom: 20px;
   flex-direction: row;
