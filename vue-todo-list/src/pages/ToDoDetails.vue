@@ -9,13 +9,13 @@
       {{todo.description}}
     </div>
     <div class="details__action">
-      <b-button  variant="dark" @click="$emit('edit', 0)">Редактировать</b-button>
-      <b-button  variant="light" @click="$emit('back', 0)">Назад</b-button>
+      <b-button  variant="dark" @click="$emit('edit', 0)">{{text[lang].edit}}</b-button>
+      <b-button  variant="light" @click="$emit('back', 0)">{{ text[lang].back }}</b-button>
       <b-button pill variant="danger" class="delete_action" v-b-modal.my-modal ><b-icon icon="trash"></b-icon> </b-button>
     </div>
     <b-modal id="my-modal" title="Уделение задачи" @ok="deleteToDo">
       <div class="d-block text-center">
-        <h3>Вы действительно хотите удалить задачу?</h3>
+        <h3>{{text[lang].confirmMessage}}</h3>
       </div>
     </b-modal>
   </div>
@@ -24,22 +24,19 @@
 <script>
 import moment from "moment";
 import {db} from "@/firebase";
+import text from "@/text/text";
 
 export default {
   name: "ToDoDetails",
   props: ["todo"],
+  data() {
+    return {
+      text
+    }
+  },
   computed: {
     type() {
-      switch (this.todo.type) {
-        case "important":
-          return "Очень важно"
-        case "major":
-          return "Важно"
-        case "normal":
-          return "Обычно"
-        default:
-          return 'Не важно'
-      }
+      return text[this.lang].type[this.todo.type]
     },
     color() {
       switch (this.todo.type) {
@@ -55,10 +52,10 @@ export default {
     },
     date() {
       if (new Date().toLocaleDateString()===this.todo.date.toLocaleDateString()) {
-        return "Сегодня"
+        return text[this.lang].days.today
       }
       if (new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString()===this.todo.date.toLocaleDateString()) {
-        return "Завтра"
+        return text[this.lang].days.tomorrow
       }
       return this.todo.date.toLocaleDateString();
     },
@@ -84,7 +81,13 @@ export default {
         console.log(err)
       })
     },
-  }
+  },
+  inject: {
+    lang: {
+      from: 'lang',
+      default: 'en'
+    }
+  },
 }
 </script>
 

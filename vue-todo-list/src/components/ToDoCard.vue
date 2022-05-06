@@ -11,22 +11,14 @@
 
 <script>
 import moment from "moment";
+import text from "@/text/text";
 
 export default {
   name: "ToDoCard",
   props: ["content"],
   computed: {
     type() {
-      switch (this.content.type) {
-        case "important":
-          return "Очень важно"
-        case "major":
-          return "Важно"
-        case "normal":
-          return "Обычно"
-        default:
-          return 'Не важно'
-      }
+      return text[this.lang].type[this.content.type]
     },
     color() {
       switch (this.content.type) {
@@ -42,10 +34,10 @@ export default {
     },
     date() {
       if (new Date().toLocaleDateString()===this.content.date.toLocaleDateString()) {
-        return "Сегодня"
+        return text[this.lang].days.today
       }
       if (new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString()===this.content.date.toLocaleDateString()) {
-        return "Завтра"
+        return text[this.lang].days.tomorrow
       }
       return this.content.date.toLocaleDateString();
     },
@@ -56,6 +48,12 @@ export default {
   methods: {
     select() {
       this.$emit("selected", this.content)
+    }
+  },
+  inject: {
+    lang: {
+      from: 'lang',
+      default: 'en'
     }
   }
 }

@@ -4,7 +4,7 @@
   <div class=" content">
     <div class="default_page" v-if="action===''">
       <h1>To Do List</h1>
-      <b-button @click="changeAction('add')" variant="danger"> <b-icon icon="plus" animation="throb"></b-icon> Добавить</b-button >
+      <b-button @click="changeAction('add')" variant="danger"> <b-icon icon="plus" animation="throb"></b-icon>{{text[lang].add}}</b-button >
     </div>
     <add-to-do v-if="action==='add'" @added="changeAction"/>
     <to-do-details v-if="action==='details'" :todo="value" @back="clear" @edit="changeAction('edit')"/>
@@ -17,12 +17,14 @@
 import AddToDo from "@/pages/AddToDo";
 import ToDoDetails from "@/pages/ToDoDetails";
 import EditToDo from "@/pages/EditToDo";
+import text from "@/text/text";
 export default {
   props: ["value"],
   name: "BottomPanel",
   components: {EditToDo, ToDoDetails, AddToDo},
   data() {
     return {
+      text,
       action: ''
     }
   },
@@ -33,6 +35,12 @@ export default {
     clear() {
       this.$emit('input', null)
       this.action = ''
+    }
+  },
+  inject: {
+    lang: {
+      from: 'lang',
+      default: 'en'
     }
   },
   watch: {

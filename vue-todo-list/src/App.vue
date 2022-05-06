@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <navigation/>
+    <navigation @selected="setLang"/>
     <splitpanes horizontal>
       <pane>
-    <cards-page @selected="setSelectedItem"/>
+    <cards-page/>
       </pane>
       <pane>
     <bottom-panel v-model="selected_item"/>
@@ -29,12 +29,18 @@ export default {
   },
   data() {
     return {
-      selected_item: null
+      selected_item: null,
+      lang: localStorage.getItem("lang") === undefined || localStorage.getItem("lang") === null ? "en" : localStorage.getItem("lang")
     }
   },
   methods: {
-    setSelectedItem(item) {
-      this.selected_item = item
+    setLang(lang) {
+      this.lang = lang
+    }
+  },
+  provide() {
+    return {
+      lang: this.lang
     }
   }
 }

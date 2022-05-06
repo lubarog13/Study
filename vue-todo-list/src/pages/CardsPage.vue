@@ -3,7 +3,7 @@
   <Particles id="tsparticles" :options="particlesConfig"/>
   <b-row class="cards_content" v-if="hasData">
     <b-col class="cards__col">
-      <h2>Открыто</h2>
+      <h2>{{text[lang].columns[0]}}</h2>
       <draggable :animation="200" class="draggable-list" v-model="opened" group="my-group">
         <transition-group>
       <to-do-card @selected="select" v-for="(card) in opened" :key="card.id" :content="card">
@@ -12,7 +12,7 @@
       </draggable>
     </b-col>
     <b-col class="cards__col">
-      <h2>В процессе</h2>
+      <h2>{{text[lang].columns[1]}}</h2>
       <draggable :animation="200" class="draggable-list" v-model="inProgress" group="my-group" >
         <transition-group>
           <to-do-card @selected="select" v-for="(card) in inProgress" :key="card.id" :content="card"></to-do-card>
@@ -20,7 +20,7 @@
       </draggable>
     </b-col>
     <b-col class="cards__col">
-      <h2>Сделано</h2>
+      <h2>{{text[lang].columns[2]}}</h2>
       <draggable :animation="200" class="draggable-list" v-model="complete" group="my-group">
         <transition-group>
           <to-do-card @selected="select" v-for="(card) in complete" :key="card.id" :content="card"></to-do-card>
@@ -37,16 +37,24 @@ import ToDoCard from "@/components/ToDoCard";
 import draggable from "vuedraggable"
 import {db} from "@/firebase";
 import particlesConfig from "../assets/particles.json";
+import text from "@/text/text";
 export default {
   name: "CardsPage",
   components: {ToDoCard, draggable},
   data() {
     return {
+        text,
         particlesConfig,
         opened: [],
         inProgress: [],
         complete: [],
         hasData: false
+    }
+  },
+  inject: {
+    lang: {
+      from: 'lang',
+      default: 'en'
     }
   },
   watch: {
@@ -101,7 +109,7 @@ export default {
       });
       this.hasData = true
     })
-  }
+  },
 }
 </script>
 
