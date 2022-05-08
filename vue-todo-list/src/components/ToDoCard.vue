@@ -11,14 +11,15 @@
 
 <script>
 import moment from "moment";
-import text from "@/text/text";
+import languageMixin from "@/mixines/languageMixin";
 
 export default {
   name: "ToDoCard",
   props: ["content"],
+  mixins: [languageMixin],
   computed: {
     type() {
-      return text[this.lang].type[this.content.type]
+      return this.text[this.lang].type[this.content.type]
     },
     color() {
       switch (this.content.type) {
@@ -34,10 +35,10 @@ export default {
     },
     date() {
       if (new Date().toLocaleDateString()===this.content.date.toLocaleDateString()) {
-        return text[this.lang].days.today
+        return this.text[this.lang].days.today
       }
       if (new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString()===this.content.date.toLocaleDateString()) {
-        return text[this.lang].days.tomorrow
+        return this.text[this.lang].days.tomorrow
       }
       return this.content.date.toLocaleDateString();
     },
@@ -47,15 +48,10 @@ export default {
   },
   methods: {
     select() {
+      console.log("slslsl")
       this.$emit("selected", this.content)
     }
   },
-  inject: {
-    lang: {
-      from: 'lang',
-      default: 'en'
-    }
-  }
 }
 </script>
 
@@ -70,6 +66,7 @@ export default {
   justify-content: space-between;
   width: 90%;
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
   font-family: 'Open Sans';
   h4 {
     font-style: normal;

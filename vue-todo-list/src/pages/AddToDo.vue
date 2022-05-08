@@ -92,20 +92,22 @@
 
 <script>
 import {db} from "@/firebase";
-import text from "@/text/text";
+import languageMixin from "@/mixines/languageMixin";
+import firebase from "firebase";
 
 export default {
   name: "AddToDo",
+  mixins: [languageMixin],
   data() {
     return {
-      text,
       form: {
         name: "",
         description: "",
         type: "",
         date: "",
       },
-      time: null
+      time: null,
+      collectionName: "todo_" + firebase.auth().currentUser.uid
     }
   },
   methods:{
@@ -113,7 +115,7 @@ export default {
        this.form.date = new Date(this.form.date+ " " + this.time)
        this.form.progress = "open"
        event.preventDefault()
-      db.collection("todo").add(this.form).then(() => {
+      db.collection(this.collectionName).add(this.form).then(() => {
         event.stopPropagation()
         this.$emit('added', '')
         }).catch(err => {
@@ -129,12 +131,6 @@ export default {
       this.time = ""
     }
   },
-  inject: {
-    lang: {
-      from: 'lang',
-      default: 'en'
-    }
-  }
 }
 </script>
 

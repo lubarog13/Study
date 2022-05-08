@@ -94,21 +94,23 @@
 <script>
 import {db} from "@/firebase";
 import moment from "moment";
-import text from "@/text/text";
+import languageMixin from "@/mixines/languageMixin";
+import firebase from "firebase";
 
 export default {
   name: "EditToDo",
   props: ['todo'],
+  mixins: [languageMixin],
   data() {
     return {
-      text,
       form: {
         name: "",
         description: "",
         type: "",
         date: "",
       },
-      time: null
+      time: null,
+      collectionName: "todo_" + firebase.auth().currentUser.uid
     }
   },
   methods:{
@@ -116,7 +118,7 @@ export default {
        this.form.date = new Date(this.form.date+ " " + this.time)
        this.form.progress = this.todo.progress
        event.preventDefault()
-      db.collection("todo").doc(this.todo.id).update(this.form).then(() => {
+      db.collection(this.collectionName).doc(this.todo.id).update(this.form).then(() => {
         event.stopPropagation()
         this.$emit('updated', '')
         }).catch(err => {
@@ -140,12 +142,6 @@ export default {
     this.form.type = this.todo.type
     this.time = moment(this.todo.date).format("HH:MM")
   },
-  inject: {
-    lang: {
-      from: 'lang',
-      default: 'en'
-    }
-  }
 }
 </script>
 

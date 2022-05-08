@@ -31,7 +31,18 @@ export default {
         },
         back: "Back",
         edit: "Edit",
-        confirmMessage: "Are you sure you want to delete the task?"
+        confirmMessage: "Are you sure you want to delete the task?",
+        login_message: 'Login or signup in the system',
+        email: "Email",
+        password: "Password",
+        signin: "SignIn",
+        signup: "SignUp",
+        googleSignIn: "Login with google",
+        emailError: "Wrong email format",
+        passwordError: "Password must be at least 8 symbols",
+        loginError: "Unable to login with this credentials",
+        signupError: "Unable to sign up with this credentials",
+        hello: 'Hi'
     },
     ru: {
         lang: "Язык",
@@ -65,6 +76,17 @@ export default {
         },
         back: "Назад",
         edit: "Редактировать",
-        confirmMessage: "Вы действительно хотите удалить задачу?"
+        confirmMessage: "Вы действительно хотите удалить задачу?",
+        login_message: 'Войдите или зарегестрируйтесь в системе',
+        email: "Email",
+        password: "Пароль",
+        signin: "Войти",
+        signup: "Зарегестрироваться",
+        googleSignIn: "Войти с учетной записью Google",
+        emailError: "Неверный формат email",
+        passwordError: "Длинна пароля - не менее 8 символов",
+        loginError: "Неверный логин или пароль",
+        signupError: "Не удается зарегестрироваться в системе",
+        hello: "Привет"
     }
 }

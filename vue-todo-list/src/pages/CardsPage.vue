@@ -37,24 +37,20 @@ import ToDoCard from "@/components/ToDoCard";
 import draggable from "vuedraggable"
 import {db} from "@/firebase";
 import particlesConfig from "../assets/particles.json";
-import text from "@/text/text";
+import languageMixin from "@/mixines/languageMixin";
+import firebase from "firebase";
 export default {
   name: "CardsPage",
   components: {ToDoCard, draggable},
+  mixins: [languageMixin],
   data() {
     return {
-        text,
         particlesConfig,
         opened: [],
         inProgress: [],
         complete: [],
-        hasData: false
-    }
-  },
-  inject: {
-    lang: {
-      from: 'lang',
-      default: 'en'
+        hasData: false,
+        collectionName: "todo_" + firebase.auth().currentUser.uid
     }
   },
   watch: {
@@ -63,21 +59,21 @@ export default {
       let val = newVal.filter(val => oldVal.filter(val1 => val1.id===val.id).length===0)[0]
       if (val===undefined || val.progress==="open")  return;
       val.progress = "open"
-      db.collection("todo").doc(val.id).update(val)
+      db.collection(this.collectionName).doc(val.id).update(val)
     },
     inProgress(newVal, oldVal) {
       if (!this.hasData) return
       let val = newVal.filter(val => oldVal.filter(val1 => val1.id===val.id).length===0)[0]
       if (val===undefined || val.progress==="in_progress")  return;
       val.progress = "in_progress"
-      db.collection("todo").doc(val.id).update(val)
+      db.collection(this.collectionName).doc(val.id).update(val)
     },
     complete(newVal, oldVal) {
       if (!this.hasData) return
       let val = newVal.filter(val => oldVal.filter(val1 => val1.id===val.id).length===0)[0]
       if (val===undefined || val.progress==="complete")  return;
       val.progress = "complete"
-      db.collection("todo").doc(val.id).update(val)
+      db.collection(this.collectionName).doc(val.id).update(val)
     },
   },
   methods: {
@@ -86,7 +82,7 @@ export default {
     }
   },
   created() {
-    db.collection('todo').onSnapshot((snapshotChange) => {
+    db.collection(this.collectionName).onSnapshot((snapshotChange) => {
       this.opened = []
       this.inProgress = []
       this.complete = []

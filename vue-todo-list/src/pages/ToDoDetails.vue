@@ -24,19 +24,15 @@
 <script>
 import moment from "moment";
 import {db} from "@/firebase";
-import text from "@/text/text";
+import languageMixin from "@/mixines/languageMixin";
 
 export default {
   name: "ToDoDetails",
   props: ["todo"],
-  data() {
-    return {
-      text
-    }
-  },
+  mixins: [languageMixin],
   computed: {
     type() {
-      return text[this.lang].type[this.todo.type]
+      return this.text[this.lang].type[this.todo.type]
     },
     color() {
       switch (this.todo.type) {
@@ -52,10 +48,10 @@ export default {
     },
     date() {
       if (new Date().toLocaleDateString()===this.todo.date.toLocaleDateString()) {
-        return text[this.lang].days.today
+        return this.text[this.lang].days.today
       }
       if (new Date(new Date().setDate(new Date().getDate() + 1)).toLocaleDateString()===this.todo.date.toLocaleDateString()) {
-        return text[this.lang].days.tomorrow
+        return this.text[this.lang].days.tomorrow
       }
       return this.todo.date.toLocaleDateString();
     },
@@ -65,11 +61,11 @@ export default {
     progress() {
       switch (this.todo.progress) {
         case 'open':
-          return 'Открыта'
+          return this.text[this.lang].columns[0]
         case 'in_progress':
-          return 'В процессе'
+          return this.text[this.lang].columns[1]
         default:
-          return 'Сделано'
+          return this.text[this.lang].columns[2]
       }
     }
   },
@@ -81,12 +77,6 @@ export default {
         console.log(err)
       })
     },
-  },
-  inject: {
-    lang: {
-      from: 'lang',
-      default: 'en'
-    }
   },
 }
 </script>

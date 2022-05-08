@@ -17,14 +17,14 @@
 import AddToDo from "@/pages/AddToDo";
 import ToDoDetails from "@/pages/ToDoDetails";
 import EditToDo from "@/pages/EditToDo";
-import text from "@/text/text";
+import languageMixin from "@/mixines/languageMixin";
 export default {
   props: ["value"],
   name: "BottomPanel",
+  mixins: [languageMixin],
   components: {EditToDo, ToDoDetails, AddToDo},
   data() {
     return {
-      text,
       action: ''
     }
   },
@@ -35,12 +35,6 @@ export default {
     clear() {
       this.$emit('input', null)
       this.action = ''
-    }
-  },
-  inject: {
-    lang: {
-      from: 'lang',
-      default: 'en'
     }
   },
   watch: {
