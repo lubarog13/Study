@@ -3,6 +3,7 @@ import './styles/App.css'
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
 import PostFilter from "./components/PostFilter";
+import MyModal from "./components/UI/modal/MyModal";
 function App() {
   const [posts, setPosts] = useState([
     {id: 1, title: 'Javascript', body: 'Description 5'},
@@ -31,8 +32,9 @@ function App() {
   }, [filter.query, sortedPosts])
   return (
     <div className="App">
-      <PostForm create={createPost}/>
-      <hr style={{margin: "15px 0"}}/>
+      <MyModal>
+        <PostForm create={createPost}/>
+      </MyModal>
       <PostFilter filter={filter} setFilter={setFilter}/>
       {sortedAndSearchedPosts.length!==0?
           <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Посты про JS"}/>
