@@ -12,8 +12,7 @@ public class PlayerControls : MonoBehaviour
         transform.position = new Vector3(0, 0, 0);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SpaceMovement()
     {
         float horizonInput = Input.GetAxis("Horizontal");
         float vertInput = Input.GetAxis("Vertical");
@@ -35,5 +34,11 @@ public class PlayerControls : MonoBehaviour
         {
             transform.position = new Vector3(9.7f, transform.position.y, 0);
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        SpaceMovement();
     }
 }
