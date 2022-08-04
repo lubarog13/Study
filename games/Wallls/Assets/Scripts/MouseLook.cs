@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,13 @@ public class MouseLook : MonoBehaviour
     public float maximumVert = 45.0f;
 
     private float _rotationX = 0;
+
+    private void Start()
+    {
+        Rigidbody body = GetComponent<Rigidbody>();
+        if (body != null)
+            body.freezeRotation = true;
+    }
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -40,9 +48,15 @@ public class MouseLook : MonoBehaviour
             transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
 
         }
-        else 
+        else
         {
-            
+            _rotationX -= Input.GetAxis("Mouse Y") * sensitivityVert;
+            _rotationX = Mathf.Clamp(_rotationX, minimumVert, maximumVert);
+
+            float delta = Input.GetAxis("Mouse X") * sensitivityHor;
+            float rotationY = transform.localEulerAngles.y + delta;
+
+            transform.localEulerAngles = new Vector3(_rotationX, rotationY, 0);
         }
     }
 }

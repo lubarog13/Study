@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour
 {
     public int speed = 6;
+    public GameObject lazerPrefab;
+    private float nextFire;
+    private float fireRate = 0.3f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,5 +43,13 @@ public class PlayerControls : MonoBehaviour
     void Update()
     {
         SpaceMovement();
+        if (Input.GetMouseButton(0))
+        {
+            if (Time.time> nextFire)
+            {
+                Instantiate(lazerPrefab, transform.position + new Vector3(0, 1.3f, 0), Quaternion.identity);
+                nextFire = Time.time + fireRate;
+            }
+        }
     }
 }
