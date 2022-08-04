@@ -1,4 +1,9 @@
-# vue-todo-list
+# To do list
+
+## Vue-electron application
+
+![Screenshot](Screenshot1.png)
+![Screenshot](Screenshot2.png)
 
 ## Project setup
 ```
