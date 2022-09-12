@@ -5,6 +5,7 @@ const expressHbs = require('express-handlebars');
 
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
+const errorController = require('./controllers/error')
 
 const app = express()
 
@@ -15,13 +16,10 @@ app.set('views', 'views')
 
 app.use(bodyParser.urlencoded({extended: false}))
 
-app.use('/admin', adminRoutes.routes)
+app.use('/admin', adminRoutes)
 app.use(shopRoutes)
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-    //res.status('404').sendFile(path.join(__dirname, 'views', 'page_404.html'))
-    res.status('404').render('page_404', {docTitle: 'Error'})
-})
+app.use(errorController.default)
 
 app.listen(3000);
