@@ -1,0 +1,6 @@
+Calculating the sqare of some integers
+
+
+{{ range .}} The sqare of {{ printf "%d" .Number }} is {{ printf "%d" .Square }} 
+
+{{ end }}
