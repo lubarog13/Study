@@ -1,4 +1,8 @@
-
+<%- include('includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+  </head>
+  <body>
+   <%- include('includes/navigation.ejs') %>
     <main>
       <form class="product-form" action="/admin/add-product" method="post">
         <div class="form-control">
@@ -11,3 +15,4 @@
         </button>
       </form>
     </main>
+<%- include('includes/end.ejs') %>

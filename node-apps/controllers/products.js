@@ -1,6 +1,11 @@
 const Product = require('../modules/prodct')
 exports.getAddProduct = (req, res, next) => {
-    res.render('add-product', {docTitle: 'Add Product', path: '/admin/add-product'})
+    res.render('add-product', {
+        docTitle: 'Add Product',
+        path: '/admin/add-product',
+        activeAddProduct: true,
+        formCSS: true
+    })
 }
 
 exports.postAddProduct = (req, res, next) => {
@@ -10,5 +15,12 @@ exports.postAddProduct = (req, res, next) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    res.render('shop', {docTitle: 'Shop', path: '/', prods: Product.fetchAll(), hasProducts: Product.fetchAll().length>0})
+    res.render('shop', {
+        docTitle: 'Shop',
+        path: '/',
+        prods: Product.fetchAll(),
+        hasProducts: Product.fetchAll().length > 0,
+        activeShop: true,
+        productCSS: true,
+    })
 }
