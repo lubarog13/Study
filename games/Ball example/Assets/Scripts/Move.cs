@@ -28,5 +28,13 @@ public class Move : MonoBehaviour
     private void FixedUpdate()
     {
         rb.AddForce(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) * forceValue);
+        rb.AddForce(new Vector3(Input.acceleration.x, 0, Input.acceleration.y) * forceValue);
+    }
+
+    private void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.tag == "Enemy") {
+            print("Collision");
+            Destroy(collision.gameObject);
+        }
     }
 }
