@@ -51,6 +51,7 @@ require (
 )
 
 require (
+	github.com/Arafatk/glot v0.0.0-20180312013246-79d5219000f0
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
