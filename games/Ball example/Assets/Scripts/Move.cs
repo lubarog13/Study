@@ -37,4 +37,9 @@ public class Move : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print("I am entering the area");
+    }
 }
