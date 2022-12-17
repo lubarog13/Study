@@ -31,15 +31,15 @@ public class Move : MonoBehaviour
         rb.AddForce(new Vector3(Input.acceleration.x, 0, Input.acceleration.y) * forceValue);
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        if(collision.gameObject.tag == "Enemy") {
-            print("Collision");
-            Destroy(collision.gameObject);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        print("I am entering the area");
-    }
+    // private void OnCollisionEnter(Collision collision) {
+    //     if(collision.gameObject.tag == "Enemy") {
+    //         print("Collision");
+    //         Destroy(collision.gameObject);
+    //     }
+    // }
+    //
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     print("I am entering the area");
+    // }
 }
