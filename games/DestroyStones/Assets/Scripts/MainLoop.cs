@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainLoop: MonoBehaviour {
 	
@@ -29,6 +30,9 @@ public class MainLoop: MonoBehaviour {
 		yield return new WaitForSeconds(2.0f);
 		
 		while(enableStones) {
+
+			if(GameManager.currentNumberDestroyedStones == 20)
+				SceneManager.LoadScene("Final");
 
 
 			GameObject stone = (GameObject) Instantiate(stones[Random.Range(0, stones.Length)]);
