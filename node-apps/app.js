@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path')
 const bodyParser = require('body-parser')
-const errorController = require('./controllers/error')
+const errorController = require('./controllers/error');
+const sequelize = require('./util/database');
+const Product = require('./models/prodct');
+const User = require('./models/user');
 //const expressHbs = require('express-handlebars');
 
 const app = express()
@@ -15,6 +18,12 @@ app.set('views', 'views')
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 
+app.use((req, res, next) => {
+    User.findByPk(1).then( user => {
+            req.user = user;
+            next();
+    }).catch(err => console.log(err));
+})
 
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -24,4 +33,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(errorController.default)
 
-app.listen(3000);
+Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
+User.hasMany(Product);
+
+sequelize.sync({force: true}).then(result => {
+   // console.log(result)
+   return User.findByPk(1);
+})
+.then(user => {
+    if(!user) {
+        return User.create({name: 'admin', email: 'test@example.com'});
+    }
+    return Promise.resolve(user)
+})
+.then(user => {
+    app.listen(3000);
+})
+.catch(err => {
+    console.error(err);
+});
+

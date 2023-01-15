@@ -1,14 +1,14 @@
-const Product = require("../modules/prodct");
-const Cart = require("../modules/cart");
+const Product = require("../models/prodct");
+const Cart = require("../models/cart");
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
-    .then(([rows, fieldData]) => {
+  Product.findAll()
+    .then(products => {
       res.render("shop/product-list", {
         docTitle: "All Products",
         path: "/products",
-        prods: rows,
-        hasProducts: rows.length > 0,
+        prods: products,
+        hasProducts: products.length > 0,
         activeShop: true,
         productCSS: true,
       });
@@ -17,13 +17,13 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-    Product.fetchAll()
-    .then(([rows, fieldData]) => {
+    Product.findAll()
+    .then((products) => {
       res.render("shop/index", {
         docTitle: "Shop",
         path: "/",
-        prods: rows,
-        hasProducts: rows.length > 0,
+        prods: products,
+        hasProducts: products.length > 0,
         activeShop: true,
         productCSS: true,
       });
@@ -74,12 +74,13 @@ exports.getOrders = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
-  Product.findById(prodId)
-    .then(([product]) => {
+  // Product.findAll({where: {id: prodId});
+  Product.findByPk(prodId)
+    .then((product) => {
         res.render("shop/product-detail", {
             docTitle: "Product",
             path: "/products",
-            product: product[0],
+            product: product,
             activeShop: true,
             productCSS: true,
           });
