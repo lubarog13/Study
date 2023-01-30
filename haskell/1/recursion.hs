@@ -40,3 +40,17 @@ fibonacci' n = helper' n 0 1
 helper' n curr prev | n == 0 = curr
              | n > 0  = helper' (n - 1) (curr + prev) curr
              | n < 0  = helper' (n + 1) prev (curr - prev)
+
+factorial6 n
+    | n >= 0 =let
+        helper acc 0 = acc
+        helper acc n = helper (acc * n) (n - 1)
+      in helper 1 n
+    | otherwise = error "arg must be >=0"
+
+factorial7 :: Integer -> Integer
+factorial7 n | n>=0 = helper 1 n
+             | otherwise = error "arg must be >=0"
+    where
+        helper acc 0 = acc
+        helper acc n = helper (acc * n) (n - 1)
