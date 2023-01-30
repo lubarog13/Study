@@ -15,7 +15,9 @@ exports.postAddProduct = (req, res, next) => {
     const imageUrl = req.body.imageURL;
     const price = req.body.price;
     const description = req.body.description;
-    Product.create({title, price, imageUrl, description, userId: req.user.id})
+    //Product.create({title, price, imageUrl, description, userId: req.user.id})
+    const product = new Product(title, price, description, imageUrl);
+    product.save()
     .then(result => {
         //console.log(result);
         res.redirect('/');
@@ -44,7 +46,8 @@ exports.getEditProduct = (req, res, next) => {
 }
 
 exports.getProducts = (req, res, next) => {
-    Product.findAll()
+    //Product.findAll()
+    Product.fetchAll()
     .then((products) => {
       res.render("admin/products", {
         docTitle: "Shop",

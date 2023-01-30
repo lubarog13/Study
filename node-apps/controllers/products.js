@@ -3,7 +3,8 @@ const Cart = require("../models/cart");
 const Order = require("../models/order");
 
 exports.getProducts = (req, res, next) => {
-  Product.findAll()
+  //Product.findAll()
+  Product.fetchAll()
     .then(products => {
       res.render("shop/product-list", {
         docTitle: "All Products",
@@ -18,7 +19,8 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-    Product.findAll()
+  Product.fetchAll()
+    //Product.findAll()
     .then((products) => {
       res.render("shop/index", {
         docTitle: "Shop",
@@ -97,7 +99,8 @@ exports.getOrders = (req, res, next) => {
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   // Product.findAll({where: {id: prodId});
-  Product.findByPk(prodId)
+  //Product.findByPk(prodId)
+  Product.findById(prodId)
     .then((product) => {
         res.render("shop/product-detail", {
             docTitle: "Product",

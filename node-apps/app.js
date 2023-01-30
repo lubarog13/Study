@@ -2,14 +2,15 @@ const express = require('express');
 const path = require('path')
 const bodyParser = require('body-parser')
 const errorController = require('./controllers/error');
-const sequelize = require('./util/database');
-const Product = require('./models/prodct');
+const mongoConnect = require('./util/database');
+const console = require('console');
+/* const Product = require('./models/prodct');
 const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
 const Order = require('./models/order');
 const OrderItem = require('./models/order-item');
-
+ */
 //const expressHbs = require('express-handlebars');
 
 const app = express()
@@ -23,13 +24,13 @@ app.set('views', 'views')
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
     User.findByPk(1).then( user => {
             req.user = user;
             next();
     }).catch(err => console.log(err));
 })
-
+ */
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/admin', adminRoutes)
@@ -37,7 +38,10 @@ app.use(shopRoutes)
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(errorController.default)
-
+mongoConnect.mongoConnect(() => {
+    app.listen(3000);
+})
+/* 
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 User.hasOne(Cart);
@@ -68,5 +72,5 @@ sequelize.sync({ force: false , alter : true }).then(result => {
 })
 .catch(err => {
     console.error(err);
-});
+}); */
 
