@@ -19,10 +19,10 @@
         </div>
         <div class="form-control">
           <label for="description">Description</label>
-          <textarea rows="5" id="description" name="description" value="<% if (editing) { %><%=product.description%><% } %>"></textarea>
+          <textarea rows="5" id="description" name="description"><% if (editing) { %><%=product.description%><% } %></textarea>
         </div>
         <% if(editing) { %>
-          <input type="hidden" value="<%= product.id %>" name="productId" >
+          <input type="hidden" value="<%= product._id %>" name="productId" >
           <% } %>
         <button
         class="btn"

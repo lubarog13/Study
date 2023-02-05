@@ -1,5 +1,6 @@
 const Product = require('../models/prodct')
 
+
 exports.getAddProduct = (req, res, next) => {
     res.render('admin/edit-product', {
         docTitle: 'Add Product',
@@ -32,7 +33,7 @@ exports.getEditProduct = (req, res, next) => {
         return res.redirect('/');
     }
     const prodId = req.params.productId;
-    Product.findByPk(prodId).then((product) => {
+    Product.findById(prodId).then((product) => {
        if(!product) return res.redirect('/')
         res.render('admin/edit-product', {
             docTitle: 'Edit Product',
@@ -67,13 +68,9 @@ exports.postEditProduct = (req, res, next) => {
     const imageURL = req.body.imageURL;
     const price = req.body.price;
     const description = req.body.description;
-    Product.findByPk(prodId).then(product => {
-        product.description = description;
-        product.price = price;
-        product.imageUrl = imageURL;
-        product.title = title;
-        return product.save()
-    })
+    const product = new Product(title, price, description, imageURL, prodId)
+
+    return product.save()
     .then(result => {
         res.redirect('/admin/products')
     })
@@ -81,9 +78,10 @@ exports.postEditProduct = (req, res, next) => {
 
 exports.deleteProduct = (req, res, next) => {
     const prodId = req.params.productId;
-    Product.findByPk(prodId).then(product => {
+    /*Product.findByPk(prodId).then(product => {
         return product.destroy();
-    })
+    })*/
+    Product.deleteById(prodId)
     .then(() =>
         res.redirect('/admin/products')
     )
