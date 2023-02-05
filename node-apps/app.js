@@ -24,13 +24,13 @@ app.set('views', 'views')
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
 
-/* app.use((req, res, next) => {
-    User.findByPk(1).then( user => {
+app.use((req, res, next) => {
+    User.findById('63dfd51ec21f54eb8c388861').then( user => {
             req.user = user;
             next();
     }).catch(err => console.log(err));
 })
- */
+ 
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/admin', adminRoutes)

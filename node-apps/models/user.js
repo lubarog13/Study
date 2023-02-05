@@ -6,9 +6,10 @@ const getDb = require('../util/database').getDb;
 const mongodb = require('mongodb');
 
 class User {
-    constructor(username, email) {
+    constructor(username, email, cart) {
         this.username = username;
         this.email = email;
+        this.cart = cart;
     }
 
     save() {
@@ -20,6 +21,14 @@ class User {
         .catch((err) => {
             console.log(err);
         });
+    }
+
+    addToCard(product) {
+        const cartProduct = this.cart.items.findIndex(cp => {
+            return cp._id == product._id;
+        })
+
+        const updatedCart = {items: [product]}
     }
 
     static findById(userId) {
