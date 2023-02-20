@@ -63,4 +63,5 @@ comp x xs = x == head xs
 -- ToDo 
 groupElems :: Eq a => [a] -> [[a]]
 groupElems [] = []
-groupElems xs = span (`comp` xs) xs
+groupElems (x:xs) = a : groupElems b where 
+    (a, b) = span (==x) (x:xs)
