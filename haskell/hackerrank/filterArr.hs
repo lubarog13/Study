@@ -33,6 +33,9 @@ len lst = helper 0 lst where
     helper n [] = n
     helper n (x:lst) = helper (n+1) lst
 
+f3 arr = [helper x | x <- arr] where
+    helper x = if (x > 0) then x else -x
+
 
 -- The Input/Output section. You do not need to change or modify this part
 main = do 
