@@ -54,3 +54,16 @@ processData :: SomeData -> String
 processData dat = case doSomeWork dat of
                     (Fail,err) -> "Fail: " ++ show err
                     (Success, _) -> "Success"
+
+
+data Result' = Success' | Fail' Int
+
+instance Show Result' where
+    show r = case r of
+        Success' -> "Success"
+        Fail' err -> "Fail: " ++ show err
+
+doSomeWork' :: SomeData -> Result'
+doSomeWork' dt = case doSomeWork dt of
+    (Fail,err) -> Fail' err
+    _ -> Success'
