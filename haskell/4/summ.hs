@@ -1,5 +1,9 @@
 module Demo where
 import Data.Function
+import Data.Time.Clock
+import Data.Time.Format
+-- import System.Locale
+
 data Point = Pt Double Double deriving Show
 
 origin :: Point
@@ -78,3 +82,51 @@ integerToZ number =
         intToBytes n = (n `mod` 2) : intToBytes (n `div` 2)
         bytesToZ = map (\x -> if x == 0 then Zero else One) 
         result n = reverse $ bytesToZ $ (dropWhile (\x -> x == 0) (reverse (intToBytes n)))
+
+
+fromMaybe (Just x) = x
+fromMaybe Nothing = error "!!!"
+
+
+fromMaybe' ~(Just x) = x
+
+
+(***) :: (a -> b) -> (c -> d) -> (a, c) -> (b, d)
+(***) f g ~(x,y) = (f x, g y)
+
+foo :: Bool -> Int
+foo ~True = 1
+foo False = 0
+
+data Person' = Person' String String Int
+
+firstName' :: Person' -> String
+firstName' (Person' x _ _) = x
+
+lastName' :: Person' -> String
+lastName' (Person' _ y _) = y
+
+age' :: Person' -> Int
+age' (Person' _ _ z) = z
+
+data Person = Person {firstName :: String, lastName :: String, age :: Int}
+    deriving (Show, Eq)
+
+timeToString :: UTCTime -> String
+timeToString = formatTime defaultTimeLocale "%a %d %T"
+
+data LogLevel = Error | Warning | Info
+    deriving Show
+
+data LogEntry = LogEntry {timestamp :: UTCTime, logLevel :: LogLevel, message :: String}
+
+logLevelToString :: LogLevel -> String
+logLevelToString = show
+
+logEntryToString :: LogEntry -> String
+logEntryToString l = (timeToString $ timestamp l) ++ ": " ++ (logLevelToString $ logLevel l) ++ ": " ++ message l
+
+test1 =
+  let ct = read "2019-02-24 18:28:52.607875 UTC"::UTCTime
+      le = LogEntry ct Info "Info Message"
+  in logEntryToString le
