@@ -59,3 +59,5 @@ ack(m, 0) = ack(m - 1, 1)
 ack(m, n) = ack(m - 1, ack(m, n - 1))
 
 unzip' a = (,) [fst x | x <- a] [snd x | x <- a]
+
+data TimeMachine' = TimeMachine' {manufacture :: String, model :: String, travel :: Travel, price :: Integer} deriving Show
