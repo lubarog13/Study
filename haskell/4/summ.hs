@@ -2,6 +2,7 @@ module Demo where
 import Data.Function
 import Data.Time.Clock
 import Data.Time.Format
+import Data.Text as Tx(drop, take)
 -- import System.Locale
 
 data Point = Pt Double Double deriving Show
@@ -130,3 +131,15 @@ test1 =
   let ct = read "2019-02-24 18:28:52.607875 UTC"::UTCTime
       le = LogEntry ct Info "Info Message"
   in logEntryToString le
+
+
+updateAge :: Int -> Person -> Person
+updateAge newAge person = person { age = newAge }
+
+updateLastName :: Person -> Person -> Person
+updateLastName p1 p2 = p2 { lastName = (lastName p1) } 
+
+
+abbrFirstName :: Person -> Person
+abbrFirstName p | (length $ firstName p) < 3 = p
+                | otherwise = p { firstName = (head $ firstName p) : "." }
