@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class SceneController : MonoBehaviour
@@ -79,6 +80,10 @@ public class SceneController : MonoBehaviour
             newArray[r] = tmp;
         }
         return newArray;
+    }
+
+    public void Restart() {
+        SceneManager.LoadScene("SampleScene");
     }
 
     // Update is called once per frame
