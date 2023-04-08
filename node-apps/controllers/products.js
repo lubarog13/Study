@@ -51,7 +51,13 @@ exports.getCard = (req, res, next) => {
 };
 
 exports.postCard = (req, res, next) => {
-  const prodId = req.body.productId;
+   const prodId = req.body.productId;
+   Product.findById(prodId).then(product => {
+    return req.user.addToCart(product);
+   }).then(() => {
+    res.redirect("/card");
+   })
+   /*
   let newQuantity = 1;
   let fetchedCard ;
   req.user.getCart().then(cart => {
@@ -78,7 +84,7 @@ exports.postCard = (req, res, next) => {
   .then(products => {
     res.redirect("/card");
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err)); */
 
 };
 
