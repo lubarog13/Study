@@ -36,8 +36,8 @@ goWrap2 =
     wrap'n'succ y >>= (\z ->
     return (x,y,z))))
 
-goWrap3 =
-    let i = 3
+goWrap3 = do 
+    let i = 3 
     x <- wrap'n'succ i
     y <- wrap'n'succ x
     wrap'n'succ y
