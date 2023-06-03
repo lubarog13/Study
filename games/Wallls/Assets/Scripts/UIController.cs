@@ -7,10 +7,11 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     [SerializeField] private TMP_Text  scoreLabel;
+    [SerializeField] private SettingsPopup settingsPopup;
     // Start is called before the first frame update
     void Start()
     {
-        
+        settingsPopup.Close();
     }
 
     // Update is called once per frame
@@ -21,6 +22,10 @@ public class UIController : MonoBehaviour
 
     public void OnOpenSettings()
     {
-        Debug.Log("Open Settings");
+        settingsPopup.Open();
+    }
+
+    public void OnPointerDown() {
+        Debug.Log("pointer down");
     }
 }
