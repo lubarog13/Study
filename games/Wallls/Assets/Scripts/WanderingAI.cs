@@ -5,6 +5,7 @@ using UnityEngine;
 public class WanderingAI : MonoBehaviour
 {
     public float speed = 3.0f;
+    public const float baseSpeed = 3.0f;
 
     public float obstacleRange = 5.0f;
 
@@ -16,6 +17,18 @@ public class WanderingAI : MonoBehaviour
     void Start()
     {
         _alive = true;
+    }
+
+    void Awake() {
+        Messenger<float>.AddListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
+    void OnDestroy() {
+        Messenger<float>.RemoveListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+    }
+
+    private void OnSpeedChanged(float value) {
+        speed = baseSpeed * value;
     }
 
     // Update is called once per frame

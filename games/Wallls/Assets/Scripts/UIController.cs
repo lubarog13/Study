@@ -8,16 +8,24 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] private TMP_Text  scoreLabel;
     [SerializeField] private SettingsPopup settingsPopup;
+    private int _score;
     // Start is called before the first frame update
+    void Awake() {
+        Messenger.AddListener(GameEvent.ENEMY_HIT, OnEnemyHit);
+    }
+    void OnDestroy() {
+        Messenger.RemoveListener(GameEvent.ENEMY_HIT, OnEnemyHit);
+    }
     void Start()
     {
+        _score = 0;
+        scoreLabel.text = _score.ToString();
         settingsPopup.Close();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        scoreLabel.text = Time.realtimeSinceStartup.ToString();
+    private void OnEnemyHit() {
+        _score += 1;
+        scoreLabel.text = _score.ToString();
     }
 
     public void OnOpenSettings()
