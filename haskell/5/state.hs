@@ -97,3 +97,27 @@ plus n x = execState (sequence $ replicate n tick) x
 
 plus' :: Int -> Int -> Int
 plus' n x = execState (replicateM n tick) x
+
+fibStep :: State (Integer, Integer) ()
+fibStep = State $ \st -> ((),  (snd st, snd st + fst st))
+
+
+execStateN :: Int -> State s a -> s -> s
+execStateN n m = execState $ replicateM n m
+
+data Tree a = Leaf a | Fork (Tree a) a (Tree a)
+
+numbering :: Tree () -> State Integer (Tree Integer)
+numbering (Leaf _) = do
+	n <- get
+	put (n+1)
+	return (Leaf n)
+numbering (Fork l _ r) = do
+	left <- numbering l
+	n <- get
+	put (n+1)
+	right <- numbering r
+	return (Fork left n right)
+
+numberTree :: Tree () -> Tree Integer
+numberTree tree = evalState (numbering tree) 1
