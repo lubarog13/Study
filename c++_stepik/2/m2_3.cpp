@@ -42,3 +42,10 @@ auto gen_finder = [](int *p,int *q){
     };
     return other;
 }; 
+
+
+enum class DAYS : unsigned int 
+{
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY,
+    FRIDAY, SATURDAY, SUNDAY
+};
