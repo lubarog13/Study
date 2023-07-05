@@ -18,16 +18,20 @@ struct iterator_traits<T*> {
     typedef iterator_category random_access_iterator_tag;
 };
 
-template <class I>
-void advance_ (I & i, size_t n, random_access_iterator_tag)
-{i+=n;}
-
-template <class I>
-void advance_(I & i, size_t n, ... ) {
-    for (size_t k = 0; k != n, ++k, ++i);
+template<class I>
+void advance_impl(I & i, size_t n, std::random_access_iterator_tag) 
+{ 
+    i += n; 
 }
 
-template <class I>
-void advance_(I & i, size_t n) {
-    advance_(i, n, iterator_traits<I>::iterator_category());
+template<class I>
+void advance_impl(I & i, size_t n, ... ) 
+{ 
+   for (size_t k = 0; k != n; ++k, ++i );
+}
+
+template<class I>
+void advance(I & i, size_t n) 
+{
+   advance_impl(i, n, typename std::iterator_traits<I>::iterator_category());
 }
