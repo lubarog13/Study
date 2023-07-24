@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ostream>
+#include <tuple>
 
 template<typename T>
 struct AddPointer
@@ -136,7 +137,7 @@ struct Concat<TypeList<Ts1 ...>, TypeList<Ts2 ...>>
 template <int H, typename ... T>
 struct IntCons;
 
-template <int H, int ... T>
+template <int H, int ...T>
 struct IntCons<H, IntList<T ...>>
 {
     using type = IntList<H, T ...>;
@@ -156,8 +157,17 @@ struct Generate<0, K>
 {
     using type = IntList<>;
 };
+template<typename F, typename T, int ...Ints>
+auto apply(F& f, T tpl, IntList<Ints...>)
+    -> decltype(f(std::get<Ints>(tpl)...))
+{
+    return f(std::get<Ints>(tpl)...);
+};
 
-
+template <typename Functor, typename ...A>
+auto apply(Functor &f, std::tuple<A ...> t) -> decltype(apply(f, t, typename Generate<sizeof... (A)>::type())){
+    return apply(f, t, typename Generate<sizeof... (A)>::type());
+}
 
 int main() {
     std::cout << Fact<10>::value << std::endl;
@@ -177,4 +187,9 @@ int main() {
 
     using L3 = Generate<5>::type; 
     std::cout << L3::Head<<" " <<L3::Tail::Head<<std::endl;
+
+    auto f = [](int x, double y, double z) { return x + y + z; };
+    auto t = std::make_tuple(30, 5.0, 1.6);  // std::tuple<int, double, double>
+    auto res = apply(f, t);                // res = 36.6
+    std::cout << res << std::endl;
 };
