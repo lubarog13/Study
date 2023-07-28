@@ -169,6 +169,31 @@ auto apply(Functor &f, std::tuple<A ...> t) -> decltype(apply(f, t, typename Gen
     return apply(f, t, typename Generate<sizeof... (A)>::type());
 }
 
+template <typename  TL>
+void printTypeList(std::ostream &os)
+{
+    os << typeid(typename TL::Head).name() << '\n';
+    printTypeList<typename TL::Tail>(os);
+}
+
+template <>
+void printTypeList<TypeList<>>(std::ostream &os) {}
+
+template <typename IL1, typename IL2, template <int, int> class F>
+struct Zip;
+
+template <int ... IL1, int... IL2, template <int, int> class F>
+struct Zip<IntList<IL1...>, IntList<IL2...>, F> {
+    using type = IntList<F<IL1, IL2>::value...>;
+};
+
+template<int a, int b>
+struct Plus
+{
+    static int const value = a + b;    
+};
+
+
 int main() {
     std::cout << Fact<10>::value << std::endl;
     using primes = IntList<2,3,5,7,11,13>;
@@ -192,4 +217,9 @@ int main() {
     auto t = std::make_tuple(30, 5.0, 1.6);  // std::tuple<int, double, double>
     auto res = apply(f, t);                // res = 36.6
     std::cout << res << std::endl;
+
+    // два списка одной длины
+    using L4 = IntList<1,2,3,4,5>;
+    using L5 = IntList<1,3,7,7,2>;
+    using L6 = Zip<L4, L5, Plus>::type;
 };
