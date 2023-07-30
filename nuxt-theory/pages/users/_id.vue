@@ -1,5 +1,7 @@
 <template>
-  <h1>User with id {{$route.params.id}}</h1>
+  <section>
+    <h1>User with id {{$route.params.id}}</h1>
+  </section>
 </template>
 
 <script>

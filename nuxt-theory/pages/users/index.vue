@@ -2,8 +2,8 @@
   <section>
     <h1>Users page</h1>
 
-    <ul>
-      <li v-for="user of users" :key="user">
+    <ul class="list-group">
+      <li class="list-group-item" v-for="user of users" :key="user">
         <a href="#" @click.prevent="goTo(user)">User {{user}}</a>
       </li>
     </ul>

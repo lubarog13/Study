@@ -1,7 +1,8 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">NuxtJS</a>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+    <a class="navbar-brand" href="#">NuxtJS</a>
 
       <div class="collapse navbar-collapse" >
         <ul class="navbar-nav mr-auto">
@@ -15,6 +16,7 @@
             <nuxt-link active-class="active" class="nav-link" to="/about">About</nuxt-link>
           </li>
         </ul>
+      </div>
       </div>
     </nav>
   </header>
