@@ -1,6 +1,8 @@
 <template>
   <section>
-    <h1>User with id {{$route.params.id}}</h1>
+    <h1>{{ user.name }}</h1>
+    <hr/>
+    <b>{{user.email}}</b>
   </section>
 </template>
 
@@ -8,6 +10,15 @@
 export default {
   validate({params}) {
     return /^\d+$/.test(params.id)
+  },
+  async asyncData({params, error, $axios}) {
+    try {
+      console.log(params.id)
+      const user = await $axios.get(`https://jsonplaceholder.typicode.com/users/${params.id}`);
+      return {user: user.data}
+    } catch (err) {
+      error(err);
+    }
   }
 }
 </script>
