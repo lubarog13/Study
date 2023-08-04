@@ -12,14 +12,22 @@
 
 <script>
 export default {
-  asyncData({$axios, error}) {
-      return $axios.$get('https://jsonplaceholder.typicode.com/users').then(users => {
-        return {
-          users
-        };
-      }).catch(error => {
-        error(error);
-      })
+  // async asyncData({store, error}) {
+  //   try {
+  //     await store.dispatch("users/fetchUsers");
+  //     return {users: store.state.users.users}
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // },
+  async fetch({store, error}) {
+    try {
+      if (store.state.users.users.length === 0) {
+        await store.dispatch('users/fetchUsers');
+      }
+    } catch (err) {
+      console.log(err)
+    }
   },
   data: () => ({
     isLoading: false,
@@ -27,6 +35,11 @@ export default {
   methods: {
     goTo(user) {
       this.$router.push('/users/' + user.id)
+    }
+  },
+  computed: {
+    users() {
+      return this.$store.state.users.users;
     }
   }
 }
