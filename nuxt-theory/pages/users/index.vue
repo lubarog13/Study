@@ -20,15 +20,15 @@ export default {
   //     console.log(e);
   //   }
   // },
-  async fetch({store, error}) {
-    try {
-      if (store.state.users.users.length === 0) {
-        await store.dispatch('users/fetchUsers');
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  },
+  // async fetch({store, error}) {
+  //   try {
+  //     if (store.state.users.users.length === 0) {
+  //       await store.dispatch('users/fetchUsers');
+  //     }
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // },
   data: () => ({
     isLoading: false,
   }),
