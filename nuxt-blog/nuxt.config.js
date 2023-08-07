@@ -19,7 +19,8 @@ export default {
   loading: {color: 'grey'},
 
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    '@/theme/index.less'
   ],
 
   plugins: [
