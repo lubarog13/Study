@@ -6,7 +6,7 @@
     >
     <header slot="header" class="post-header">
       <h3>Post title</h3>
-      <small>{{ new Date().toLocaleString()}}</small>
+      <small><i class="el-icon-time"></i> {{ new Date().toLocaleString()}}</small>
     </header>
     <div class="post-body">
       <img
@@ -29,7 +29,8 @@
 export default {
   methods: {
     openPost() {
-
+      const id = 'test-id';
+      this.$router.push(`/post/${id}`);
     }
   }
 }
@@ -37,7 +38,21 @@ export default {
 
 <style lang="less" scoped>
   .post {
-    min-height: 200px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    &-img {
+      width: 100%;
+      height: auto;
+    }
+    &-footer {
+      padding: 1rem;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
   }
 </style>

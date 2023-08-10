@@ -13,8 +13,6 @@ export default new Vuex.Store({
   mutations: {
     setCharacters(state, {page, characters}) {
       Vue.set(state.characters, page, characters)
-      console.log(state.characters)
-      console.log(3)
     },
     setPages(state, pages) {
       state.pages = pages
