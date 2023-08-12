@@ -24,7 +24,7 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus accusantium adipisci at consectetur cum dolores ducimus, est hic in libero nemo odit rem, repellat similique vel velit voluptas voluptatum!</p>
     </main>
     <footer>
-      <!-- Form -->
+      <AppCommentForm/>
       <div class="comments" v-if="true">
         <app-comment v-for="comment in 4" :key="comment" :comment="comment"/>
       </div>
@@ -35,9 +35,11 @@
 
 <script>
 import AppComment from '@/components/main/Comment.vue'
+import AppCommentForm from '@/components/main/CommentForm.vue'
 export default {
   components: {
-    AppComment
+    AppComment,
+    AppCommentForm
   },
   validate({params}) {
     return Boolean(params.id)
