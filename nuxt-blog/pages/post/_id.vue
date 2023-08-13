@@ -24,7 +24,7 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus accusantium adipisci at consectetur cum dolores ducimus, est hic in libero nemo odit rem, repellat similique vel velit voluptas voluptatum!</p>
     </main>
     <footer>
-      <AppCommentForm/>
+      <AppCommentForm v-if="showCommentForm" @created="createCommentHandler"/>
       <div class="comments" v-if="true">
         <app-comment v-for="comment in 4" :key="comment" :comment="comment"/>
       </div>
@@ -41,8 +41,18 @@ export default {
     AppComment,
     AppCommentForm
   },
+  data() {
+    return {
+      showCommentForm: true,
+    }
+  },
   validate({params}) {
     return Boolean(params.id)
+  },
+  methods: {
+    createCommentHandler(comment) {
+      this.showCommentForm = false
+    }
   }
 }
 </script>

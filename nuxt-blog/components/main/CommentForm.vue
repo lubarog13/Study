@@ -3,6 +3,7 @@ export default {
   name: "CommentForm",
   data() {
     return {
+      loading: false,
       controls: {
         name: '',
         text: ''
@@ -21,9 +22,20 @@ export default {
     onSubmit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          alert("Комментарий отправлен на модерацию");
+          this.loading = true;
+          const formData = {
+            name: this.controls.name,
+            text: this.controls.text,
+            postId: ''
+          }
+          try {
+            this.$message.success('Комментарий добавлен')
+            this.$emit('created')
+          } catch (e) {
+            console.log(e)
+            this.loading = false;
+          }
         } else {
-          console.log('Ошибка');
           return false;
         }
       })
@@ -43,7 +55,7 @@ export default {
       <el-input type="textarea" resize="none" :rows="2" v-model="controls.text"/>
     </el-form-item>
     <el-form-item>
-      <el-button native-type="submit" type="primary" >Отправить</el-button>
+      <el-button :loading="loading" native-type="submit" type="primary" >Отправить</el-button>
     </el-form-item>
   </el-form>
 </template>

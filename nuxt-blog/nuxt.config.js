@@ -16,6 +16,8 @@ export default {
     ]
   },
 
+  pageTransition: { name: 'page', mode: 'out-in' },
+
   loading: {color: 'grey'},
 
   css: [
