@@ -20,8 +20,32 @@ export default {
       }
     }
   },
+  mounted() {
+    const {message} = this.$route.query;
+    if (message === 'login') {
+      this.$message.info('Для начала войдите в систему')
+    }
+  },
   methods: {
-    onSubmit() {}
+    async onSubmit() {
+      this.$refs.form.validate(async valid => {
+        if (valid) {
+          this.loading = true
+          try {
+            const formData = {
+              login: this.controls.login,
+              password: this.controls.password,
+            }
+            await this.$store.dispatch('auth/login', formData);
+            await this.$router.push('/admin')
+          } catch (e) {
+            this.loading = false;
+          }
+        } else {
+
+        }
+      })
+    }
   }
 }
 </script>
