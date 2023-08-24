@@ -24,6 +24,8 @@ export default {
     const {message} = this.$route.query;
     if (message === 'login') {
       this.$message.info('Для начала войдите в систему')
+    } else if (message === 'logout') {
+      this.$message.success('Вы успешно вышли из системы')
     }
   },
   methods: {
