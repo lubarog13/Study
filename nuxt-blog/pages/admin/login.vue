@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit() {
+    onSubmit() {
       this.$refs.form.validate(async valid => {
         if (valid) {
           this.loading = true
