@@ -18,7 +18,7 @@ export default {
 
   pageTransition: { name: 'page', mode: 'out-in' },
 
-  loading: {color: 'grey'},
+  loading: {color: '#409EFF'},
 
   css: [
     'element-ui/lib/theme-chalk/index.css',

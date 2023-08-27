@@ -9,9 +9,21 @@ export default {
   },
   methods: {
     open(id) {
+      this.$router.push(`/admin/post/${id}`)
     },
-    remove(id) {
-      console.log(index, row);
+    async remove(id) {
+      try {
+          await this.$confirm('Удалить пост?', 'Внимание', {
+            confirmButtonText: 'Да',
+            cancelButtonText: 'Нет',
+            type: 'warning'
+          })
+        await this.$store.dispatch('post/remove', id)
+        this.posts = this.posts.filter(post => post._id!==id)
+        this.$message.success('Пост удален')
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
@@ -49,15 +61,20 @@ export default {
     <el-table-column
       label="Действия">
       <template slot-scope="scope">
+        <el-tooltip class="item" effect="dark" content="Открыть пост" placement="top">
         <el-button
           circle
+          type="primary"
           icon="el-icon-edit"
           @click="open(scope.row._id)"></el-button>
+        </el-tooltip>
+        <el-tooltip class="item" effect="dark" content="Удалить пост" placement="top">
         <el-button
           icon="el-icon-delete"
           type="danger"
           circle
           @click="remove(scope.row._id)"></el-button>
+        </el-tooltip>
       </template>
     </el-table-column>
   </el-table>
