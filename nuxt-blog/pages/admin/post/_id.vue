@@ -8,6 +8,9 @@ export default {
       title: `Пост | ${this.post.title}`
     }
   },
+  validate({params}) {
+    return Boolean(params.id)
+  },
   async asyncData({store, params}) {
     const post = await store.dispatch('post/fetchAdminById', params.id)
     console.log(post)
@@ -28,6 +31,23 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.$refs.form.validate(async valid => {
+        if (valid) {
+          this.loading = true;
+          const formData = {
+            text: this.controls.text,
+            id: this.post._id,
+          }
+
+          try {
+            await this.$store.dispatch('post/update', formData);
+            this.$message.success('Пост обновлен')
+            this.loading = false
+          } catch (e) {
+            this.loading = false
+          }
+        }
+      })
     }
   }
 }
