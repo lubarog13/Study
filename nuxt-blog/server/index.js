@@ -1,7 +1,7 @@
-const express = require('express')
+const app = require('./app')
 const consola = require('consola')
 const {Nuxt, Builder} = require('nuxt')
-const app = express()
+
 
 let config = require('../nuxt.config')
 config.dev = !(process.env.NODE_ENV === 'production')
@@ -19,10 +19,11 @@ async function start() {
 
   app.use(nuxt.render)
 
-  app.listen(port, host)
-  console.ready({
-    message: `Server listening on http://${host}:${port}`,
-    badge: true
+  app.listen(port, host, () => {
+    consola.ready({
+      message: `Server listening on http://${host}:${port}`,
+      badge: true
+    })
   })
 }
 
