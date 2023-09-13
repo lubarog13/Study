@@ -1,10 +1,11 @@
-export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
+const pkg = require('./package')
+
+
+module.exports = {
+  mode: 'universal',
+
   head: {
-    title: 'nuxt-blog',
-    htmlAttrs: {
-      lang: 'en'
-    },
+    title: pkg.name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -29,21 +30,18 @@ export default {
     '@/plugins/globals'
   ],
 
-  components: true,
-
-  buildModules: [
-  ],
-
   modules: [
-    '@nuxtjs/axios',
+    '@nuxtjs/axios'
   ],
 
   axios: {
     baseURL: '/',
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [/^element-ui/],
+    extend(config, ctx) {
+
+    }
   }
 }
