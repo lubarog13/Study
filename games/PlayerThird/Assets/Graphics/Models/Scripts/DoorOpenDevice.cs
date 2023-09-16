@@ -28,4 +28,21 @@ public class DoorOpenDevice : MonoBehaviour
     {
         
     }
+
+    public void Activate() {
+        Debug.Log(_open);
+        if (!_open) {
+            Vector3 pos = transform.position + dPos;
+            transform.position = pos;
+            _open = true;
+        }
+    }
+
+    public void Deactivate() {
+        if (_open) {
+            Vector3 pos = transform.position - dPos;
+            transform.position = pos;
+            _open = false;
+        }
+    }
 }
