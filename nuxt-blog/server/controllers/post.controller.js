@@ -26,17 +26,44 @@ module.exports.getAll = async (req, res) => {
 
 module.exports.getById = async (req, res) => {
     try {
-        await Post.findById(req.params.id).populate('comments')
+        await Post.findById(req.params.id).populate('comments').exec((err, post) => 
+        {
+            res.json(post)
+        })
     } catch (e) {
         res.status(500).json(e)
     }
 };
 
 module.exports.update = async (req, res) => {
+    const $set = {
+        text: req.body.text,
+    }
+    try {
+        const post = await Post.findOneAndUpdate({_id: req.params.id}, {$set}, {new: true})
+        res.json(post)
+    } catch (e) {
+        res.status(500).json(e)
+    }
 };
 
 module.exports.remove = async (req, res) => {
+    try {
+        await Post.deleteOne({_id: req.params.id})
+        res.json({message: 'Пост удален'})
+    } catch (e) {
+        res.status(500).json(e)
+    }
 };
 
 module.exports.addView = async (req, res) => {
+    const $set = {
+        views: ++req.body.views,
+    }
+    try {
+        await Post.findOneAndUpdate({_id: req.params.id}, {$set}, {new: true})
+        res.status(204).json()
+    } catch (e) {
+        res.status(500).json(e);
+    }
 };

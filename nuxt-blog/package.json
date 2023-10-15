@@ -8,6 +8,7 @@
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate"
   },
+
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
     "bcrypt-nodejs": "^0.0.3",
@@ -27,7 +28,7 @@
     "vue": "^2.7.10",
     "vue-markdown": "^2.2.4",
     "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10",
+    "vue-template-compiler": "^2.7.14",
     "webpack": "4.45.0"
   },
   "devDependencies": {
