@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webassembly testing</title>
+</head>
+<body>
+    HTML page with webassembly module.
+    <script src="js_plumbing.js"></script>
+    <script src="with_side_module.js"></script>
+    <script src="check_supported.js"></script>
+    <script>
+        console.log(isWebAssemblySupported())
+    </script>
+</body>
+</html>
