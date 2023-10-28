@@ -26,6 +26,8 @@ export default {
       this.$message.info('Для начала войдите в систему')
     } else if (message === 'logout') {
       this.$message.success('Вы успешно вышли из системы')
+    } else if (message === 'session') {
+      this.$message.warning('Время сессии истекло, пожалуйста зайдите заного')
     }
   },
   methods: {

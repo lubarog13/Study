@@ -27,7 +27,8 @@ module.exports = {
   ],
 
   plugins: [
-    '@/plugins/globals'
+    '@/plugins/globals',
+    '@/plugins/axios'
   ],
 
   modules: [
