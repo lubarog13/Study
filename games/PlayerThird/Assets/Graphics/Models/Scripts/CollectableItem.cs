@@ -8,7 +8,7 @@ public class CollectableItem : MonoBehaviour
     // Start is called before the first frame update
     void OnTriggerEnter()
     {
-        Debug.Log("Item collected: " + itemName);
+        Managers.Inventory.AddItem(itemName);
         Destroy(this.gameObject);
     }
 }
