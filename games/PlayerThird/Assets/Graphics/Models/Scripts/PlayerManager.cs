@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour, IGameManager
         status = ManagerStatus.Started;
     }
     // Start is called before the first frame update
-    void ChangeHealth(int value)
+    public void ChangeHealth(int value)
     {
         health+=value;
         if (health > maxHealth) {

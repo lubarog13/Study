@@ -27,7 +27,7 @@ public class OrbitCamera : MonoBehaviour
             _rotY += Input.GetAxis("Mouse X") * rotSpeed * 3;
         }
 
-        Quaternion rotation = Quaternion.Euler(0, _rotY, 0);
+        Quaternion rotation = Quaternion.Euler(0, _rotY, -90);
         transform.position = target.position - (rotation * _offset);
         transform.LookAt(target);
     }
