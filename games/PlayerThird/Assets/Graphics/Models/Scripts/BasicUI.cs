@@ -13,7 +13,6 @@ public class BasicUI : MonoBehaviour
 
         List<string> itemList = Managers.Inventory.GetItemList();
         if (itemList.Count == 0) {
-            Debug.Log("No Items");
             GUI.Box(new Rect(posX, posY, width, height), "No Items");
         }
         foreach (string item in itemList) {
