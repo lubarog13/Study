@@ -7,6 +7,7 @@ public class SettingsPopup : MonoBehaviour
 {
     [SerializeField] private Slider speedSlider;
     [SerializeField] private Slider soundSlider;
+    [SerializeField] private AudioClip sound;
     void Start() {
         speedSlider.value = PlayerPrefs.GetFloat("speed", 1);
     }
@@ -26,9 +27,26 @@ public class SettingsPopup : MonoBehaviour
 
     public void OnSoundToggle() {
         Managers.Audio.soundMute = !Managers.Audio.soundMute;
+        Managers.Audio.PlaySound(sound);
     }
 
     public void OnSoundValue(Slider slider) {
         Managers.Audio.soundVolume = slider.value;
+    }
+
+    public void OnPlayMusic(int selector) {
+        Managers.Audio.PlaySound(sound);
+
+        switch(selector) {
+            case 1:
+                Managers.Audio.PlayIntroMusic();
+                break;
+            case 2:
+                Managers.Audio.PlayLevelMusic();
+                break;
+            default:
+                Managers.Audio.StopMusic();
+                break;
+        }
     }
 }
