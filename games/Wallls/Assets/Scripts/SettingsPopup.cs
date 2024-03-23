@@ -49,4 +49,14 @@ public class SettingsPopup : MonoBehaviour
                 break;
         }
     }
+
+    public void OnMusicToggle() {
+        Managers.Audio.musicMute = !Managers.Audio.musicMute;
+        Managers.Audio.PlaySound(sound);
+    }
+
+    public void OnMusicValue(Slider slider) {
+
+        Managers.Audio.musicVolume = slider.value;
+    }
 }
