@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class GameIvent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+     public const string ENEMY_HIT = "ENEMY_HIT";
+    public const string SPEED_CHANGED = "SPEED_CHANGED";
 }

@@ -7,10 +7,14 @@ public class InventoryManager : MonoBehaviour, IGameManager
     public ManagerStatus status {get; private set;}
     private Dictionary<string, int> _items;
 
+    private NetworkService _network;
+
+
     public string equippedItem {get; private set;}
     // Start is called before the first frame update
     public void Startup(NetworkService service) {
         Debug.Log("Inventory manager starting...");
+        _network = service;
         _items = new Dictionary<string, int>();
         status = ManagerStatus.Started;
     }
