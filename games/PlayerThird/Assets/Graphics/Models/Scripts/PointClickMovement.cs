@@ -40,8 +40,11 @@ public class PointClickMovement : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit mouseHit;
             if (Physics.Raycast(ray, out mouseHit)) {
-                _targetPos = mouseHit.point;
-                _curSpeed = moveSpeed;
+                GameObject hitObject = mouseHit.transform.gameObject;
+                if (hitObject.layer == LayerMask.NameToLayer("Ground")) {
+                    _targetPos = mouseHit.point;
+                    _curSpeed = moveSpeed;
+                }
             }
         }
         if (_targetPos != Vector3.one) {
@@ -50,22 +53,61 @@ public class PointClickMovement : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(adjustedPos - transform.position);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
             }
-        }
-        movement = _curSpeed * Vector3.forward;
-        movement = transform.TransformDirection(movement);
+            movement = _curSpeed * Vector3.forward;
+            movement = transform.TransformDirection(movement);
 
-        if (Vector3.Distance(_targetPos, transform.position) < targetBuffer) {
-            _curSpeed -= deceleration * Time.deltaTime;
-            if (_curSpeed <= 0) {
-                _curSpeed = 0;
-                _targetPos = Vector3.one;
+            if (Vector3.Distance(_targetPos, transform.position) < targetBuffer) {
+                _curSpeed -= deceleration * Time.deltaTime;
+                if (_curSpeed <= 0) {
+                    _curSpeed = 0;
+                    _targetPos = Vector3.one;
+                }
             }
         }
+        bool hitGround = false;
+        RaycastHit hit;
         if (_vertSpeed < 0 && Physics.Raycast(transform.position, Vector3.down, out hit))
         {
                 float check = (_charController.height + _charController.radius) / 1.9f;
                 hitGround = hit.distance <= check;
         }
+        _animator.SetFloat("Speed", movement.sqrMagnitude);
+        if (hitGround)
+        {
+            if (Input.GetMouseButton(1))
+            {
+                _vertSpeed = jumpSpeed;
+            }
+            else
+            {
+                _vertSpeed = minFall;
+                _animator.SetBool("Jumping", false);
+            }
+        } else {
+            _vertSpeed += gravity * 5 * Time.deltaTime;
+            if (_vertSpeed < terminalVelocity)
+            {
+                _vertSpeed = terminalVelocity;
+            }
+            if (_contact != null)
+            {
+                _animator.SetBool("Jumping", true);
+            }
+            if (_charController.isGrounded)
+            {
+                if (Vector3.Dot(movement, _contact.normal) < 0)
+                {
+                    movement = _contact.normal * moveSpeed;
+                }
+                else
+                {
+                    movement += _contact.normal * moveSpeed;
+                }
+            }
+        }
+        movement.y = _vertSpeed;
+        movement *= Time.deltaTime;
+        _charController.Move(movement);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
