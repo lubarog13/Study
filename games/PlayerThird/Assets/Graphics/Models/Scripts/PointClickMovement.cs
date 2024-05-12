@@ -6,6 +6,8 @@ using UnityEngine;
 public class PointClickMovement : MonoBehaviour
 {
     [SerializeField] private Transform target;
+    [SerializeField] private GameObject aimPrefab;
+     private GameObject _aim;
     public float rotSpeed = 15.0f;
     public float moveSpeed = 6.0f;
     public float jumpSpeed = 15.0f;
@@ -44,6 +46,10 @@ public class PointClickMovement : MonoBehaviour
                 if (hitObject.layer == LayerMask.NameToLayer("Ground")) {
                     _targetPos = mouseHit.point;
                     _curSpeed = moveSpeed;
+                    if(_aim == null) {
+                        _aim = Instantiate(aimPrefab) as GameObject;
+                    }
+                    _aim.transform.position = _targetPos;
                 }
             }
         }
@@ -61,6 +67,8 @@ public class PointClickMovement : MonoBehaviour
                 if (_curSpeed <= 0) {
                     _curSpeed = 0;
                     _targetPos = Vector3.one;
+                    Destroy(_aim);
+                    _aim = null;
                 }
             }
         }
