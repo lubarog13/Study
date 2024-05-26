@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -38,7 +39,7 @@ public class PointClickMovement : MonoBehaviour
     void Update()
     {
         Vector3 movement = Vector3.zero;
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit mouseHit;
             if (Physics.Raycast(ray, out mouseHit)) {
