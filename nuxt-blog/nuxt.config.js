@@ -35,9 +35,7 @@ module.exports = {
     '@nuxtjs/axios'
   ],
 
-  axios: {
-    baseURL: '/',
-  },
+  axios: {},
 
   build: {
     transpile: [/^element-ui/],

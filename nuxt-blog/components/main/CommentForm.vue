@@ -32,14 +32,12 @@ export default {
             this.$message.success('Комментарий добавлен')
             this.$emit('created')
           } catch (e) {
-            console.log(e)
             this.loading = false;
           }
         } else {
           return false;
         }
       })
-      console.log('submit!');
     }
   }
 }

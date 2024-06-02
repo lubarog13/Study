@@ -13,7 +13,6 @@ export default {
   },
   async asyncData({store, params}) {
     const post = await store.dispatch('post/fetchAdminById', params.id)
-    console.log(post)
     return {post}
   },
   data() {
@@ -28,6 +27,9 @@ export default {
         ],
       }
     }
+  },
+  mounted() {
+    this.controls.text = this.post.text;
   },
   methods: {
     onSubmit() {

@@ -1,5 +1,6 @@
 import Cookie from  'cookie';
 import Cookies from 'js-cookie'
+import "core-js/stable/atob";
 import {jwtDecode} from 'jwt-decode'
 
 export const state = () => ({
@@ -15,7 +16,6 @@ export const actions = {
   async login({commit, dispatch}, formData) {
     try {
       const {token} = await this.$axios.$post('/api/auth/admin/login', formData)
-      console.log(token)
       dispatch('setToken', token)
     } catch (e) {
       commit('setError', e, {root: true})
@@ -68,4 +68,5 @@ function isJWTValid(token) {
   const jwtData = jwtDecode(token) || {}
   const expires = jwtData.exp || 0
   return (new Date().getTime() / 1000) < expires;
+  //return true
 }

@@ -5,12 +5,12 @@
     class="post"
     >
     <header slot="header" class="post-header">
-      <h3>Post title</h3>
-      <small><i class="el-icon-time"></i> {{ new Date().toLocaleString()}}</small>
+      <h3>{{ post.title }}</h3>
+      <small><i class="el-icon-time"></i> {{ post.date.toLocaleString()}}</small>
     </header>
     <div class="post-body">
       <img
-        src="https://docs.unity3d.com/cn/2021.1/uploads/Main/LightUsageSceneView.svg"
+        :src="post.imageUrl"
         alt="post image"
         class="post-img">
     </div>
@@ -18,7 +18,7 @@
         <el-button round @click="openPost">Открыть</el-button>
         <span>
           <i class="el-icon-message">
-            12
+            {{ post.comments.length }}
           </i>
         </span>
     </footer>
@@ -27,6 +27,12 @@
 
 <script>
 export default {
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    }
+  },
   methods: {
     openPost() {
       const id = 'test-id';
