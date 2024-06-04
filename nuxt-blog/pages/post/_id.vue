@@ -2,31 +2,26 @@
   <article class="post">
     <header class="post-header">
       <div class="post-title">
-        <h1>Post title</h1>
+        <h1>{{ post.title }}</h1>
         <nuxt-link to="/"><i class="el-icon-back"></i></nuxt-link>
       </div>
       <div class="post-info">
-        <small><i class="el-icon-time"></i> {{ new Date().toLocaleString()}}</small>
-        <small><i class="el-icon-view"></i> 42</small>
+        <small><i class="el-icon-time"></i> {{ post.date.toLocaleString() }}</small>
+        <small><i class="el-icon-view"></i> {{ post.views }}</small>
       </div>
       <div class="post-image">
         <img
-          src="https://docs.unity3d.com/cn/2021.1/uploads/Main/LightUsageSceneView.svg"
+          :src="post.imageUrl"
           alt="post image">
       </div>
     </header>
     <main class="post-text">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad consequatur consequuntur eius esse fugit, illum impedit incidunt iure libero minima natus nesciunt placeat porro possimus sed veniam? At, excepturi!</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci doloremque est illum libero magnam molestiae non quod! Aut commodi consectetur deleniti dolorum est explicabo, iure nesciunt nisi quae vel velit.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aperiam, consectetur debitis ea expedita explicabo facere natus neque nesciunt, officia perferendis quis quo repellendus sed tempore vel vitae, voluptate voluptatem!</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda at cupiditate debitis delectus enim, et eum eveniet, hic ipsam, itaque necessitatibus nemo obcaecati pariatur perferendis praesentium quas tempora ut voluptatem?</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi eos ipsum laboriosam minus modi perferendis, placeat repellat sint unde. Blanditiis debitis delectus ipsum iste officia perspiciatis provident reiciendis saepe tempore!</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus accusantium adipisci at consectetur cum dolores ducimus, est hic in libero nemo odit rem, repellat similique vel velit voluptas voluptatum!</p>
+      <vue-markdown>{{post.text}}</vue-markdown>
     </main>
     <footer>
       <AppCommentForm v-if="showCommentForm" @created="createCommentHandler"/>
-      <div class="comments" v-if="true">
-        <app-comment v-for="comment in 4" :key="comment" :comment="comment"/>
+      <div class="comments" v-if="post.comments.length">
+        <app-comment v-for="comment in post.comments" :key="comment" :comment="comment"/>
       </div>
       <div class="text-center" v-else>Комментариев нет</div>
     </footer>
@@ -35,7 +30,7 @@
 
 <script>
 import AppComment from '@/components/main/Comment.vue'
-import AppCommentForm from '@/components/main/CommentForm.vue'
+import AppCommentForm from '@/components/main/CommentForm.vue';
 export default {
   components: {
     AppComment,
@@ -48,6 +43,16 @@ export default {
   },
   validate({params}) {
     return Boolean(params.id)
+  },
+  async asyncData({store, route}) {
+    const post = await store.dispatch('post/fetchById', route.params.id);
+    await store.dispatch('post/addView', post)
+    return {
+      post: {
+        ...post,
+        views: ++post.views
+      }
+    }
   },
   methods: {
     createCommentHandler(comment) {

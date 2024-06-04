@@ -58,6 +58,7 @@ module.exports.addView = async (req, res) => {
     const $set = {
         views: ++req.body.views,
     }
+    console.log($set)
     try {
         await Post.findOneAndUpdate({_id: req.params.id}, {$set}, {new: true})
         res.status(204).json()

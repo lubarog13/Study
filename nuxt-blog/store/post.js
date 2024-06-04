@@ -20,6 +20,14 @@ export const actions = {
       throw e;
     }
   },
+  async fetchById({commit}, id) {
+    try {
+      return this.$axios.$get(`/api/post/${id}`)
+    } catch (e) {
+      commit('setError', e, {root: true})
+      throw e;
+    }
+  },
   async remove({commit}, id) {
     try {
       return this.$axios.$delete(`/api/post/admin/${id}`)
@@ -51,6 +59,14 @@ export const actions = {
   async fetchAdminById({commit}, id) {
     try {
       return this.$axios.$get(`/api/post/admin/${id}`)
+    } catch (e) {
+      commit('setError', e, {root: true})
+      throw e;
+    }
+  },
+  async addView({commit}, post) {
+    try {
+      return this.$axios.$put(`/api/post/add/view/${post._id}`, {views: post.views})
     } catch (e) {
       commit('setError', e, {root: true})
       throw e;
