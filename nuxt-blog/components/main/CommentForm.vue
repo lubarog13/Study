@@ -1,6 +1,12 @@
 <script>
 export default {
   name: "CommentForm",
+  props: {
+    postId: {
+      type: String,
+      required: true,
+    }
+  },
   data() {
     return {
       loading: false,
@@ -26,11 +32,18 @@ export default {
           const formData = {
             name: this.controls.name,
             text: this.controls.text,
-            postId: ''
+            postId: this.postId
           }
           try {
-            this.$message.success('Комментарий добавлен')
-            this.$emit('created')
+            this.$store.dispatch('comment/create', formData).then((res) => {
+              if (res.data._id) {
+                this.$message.success('Комментарий добавлен')
+                this.$emit('created', res.data)
+              }
+            }).catch(e => {
+              this.$message.error('Комментарий не добавлен')
+            })
+            this.loading = false
           } catch (e) {
             this.loading = false;
           }

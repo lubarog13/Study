@@ -19,9 +19,9 @@
       <vue-markdown>{{post.text}}</vue-markdown>
     </main>
     <footer>
-      <AppCommentForm v-if="showCommentForm" @created="createCommentHandler"/>
+      <AppCommentForm v-if="showCommentForm" :post-id="post._id" @created="createCommentHandler"/>
       <div class="comments" v-if="post.comments.length">
-        <app-comment v-for="comment in post.comments" :key="comment" :comment="comment"/>
+        <app-comment v-for="comment in post.comments" :key="comment._id" :comment="comment"/>
       </div>
       <div class="text-center" v-else>Комментариев нет</div>
     </footer>
@@ -56,7 +56,8 @@ export default {
   },
   methods: {
     createCommentHandler(comment) {
-      this.showCommentForm = false
+      this.showCommentForm = false;
+      this.post.comments.push(comment)
     }
   }
 }
