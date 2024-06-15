@@ -3,6 +3,11 @@ export default {
   name: "create",
   layout: "admin",
   middleware: ['admin-auth'],
+  head() {
+    return {
+      title: `Новый пост | ${process.env.appName}`
+    }
+  },
   data() {
     return {
       loading: false,

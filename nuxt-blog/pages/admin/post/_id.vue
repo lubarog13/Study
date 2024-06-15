@@ -5,7 +5,7 @@ export default {
   middleware: ['admin-auth'],
   head() {
     return {
-      title: `Пост | ${this.post.title}`
+      title: `${this.post.title | 'Пост'} | ${process.env.appName}`
     }
   },
   validate({params}) {
@@ -70,7 +70,7 @@ export default {
         <small class="mr">
           <i class="el-icon-time"></i>
           <span style="margin-left: 10px">
-            {{new Date(post.date).toLocaleString()}}
+            {{ post.date | date}}
           </span>
         </small>
         <small>

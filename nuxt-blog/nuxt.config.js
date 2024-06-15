@@ -32,10 +32,19 @@ module.exports = {
   ],
 
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa',
   ],
 
+  workbox: {
+
+  },
+
   axios: {},
+
+  env: {
+    appName: 'SSR Blog'
+  },
 
   build: {
     transpile: [/^element-ui/],

@@ -1,6 +1,11 @@
 <script>
 export default {
   name: "user",
+  head() {
+    return {
+      title: `Добавление пользователя | ${process.env.appName}`
+    }
+  },
   layout: "admin",
   middleware: ['admin-auth'],
   data() {

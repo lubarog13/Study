@@ -2,6 +2,11 @@
 export default {
   name: "login",
   layout: "empty",
+  head() {
+    return {
+      title: `Авторизация | ${process.env.appName}`
+    }
+  },
   data() {
     return {
       loading: false,

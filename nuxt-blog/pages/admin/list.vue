@@ -3,6 +3,11 @@ export default {
   name: "list",
   layout: "admin",
   middleware: ['admin-auth'],
+  head() {
+    return {
+      title: `Все посты | ${process.env.appName}`
+    }
+  },
   async asyncData({store}) {
     const posts = await store.dispatch('post/fetchAdminPosts')
     return {posts}
@@ -41,7 +46,7 @@ export default {
       label="Дата">
       <template slot-scope="scope">
         <i class="el-icon-time"></i>
-        <span style="margin-left: 10px">{{scope.row.date.toLocaleString()}}</span>
+        <span style="margin-left: 10px">{{scope.row.date | date }}</span>
       </template>
     </el-table-column>
     <el-table-column label="Просмотры" prop="views">

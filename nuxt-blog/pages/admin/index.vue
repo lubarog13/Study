@@ -6,6 +6,12 @@ export default {
   components: {AnalyticsChart},
   layout: 'admin',
   middleware: ['admin-auth'],
+
+  head() {
+    return {
+      title: `Аналитика | ${process.env.appName}`
+    }
+  },
   async asyncData({store}) {
     const analytics = await store.dispatch('post/getAnalytics');
     return {analytics};
