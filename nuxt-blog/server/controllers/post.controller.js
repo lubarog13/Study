@@ -58,7 +58,6 @@ module.exports.addView = async (req, res) => {
     const $set = {
         views: ++req.body.views,
     }
-    console.log($set)
     try {
         await Post.findOneAndUpdate({_id: req.params.id}, {$set}, {new: true})
         res.status(204).json()
@@ -66,3 +65,25 @@ module.exports.addView = async (req, res) => {
         res.status(500).json(e);
     }
 };
+
+module.exports.getAnalytics = async (req, res) => {
+  try {
+    const posts = await Post.find()
+    const labels= posts.map(post => post.title)
+
+    const json = {
+      comments: {
+        labels: labels,
+        data: posts.map(post => post.comments.length)
+      },
+      views: {
+        labels,
+        data: posts.map(post => post.views)
+      }
+    }
+
+    res.json(json)
+  } catch (e) {
+    res.status(500).json(e);
+  }
+}
