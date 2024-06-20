@@ -5,12 +5,13 @@ module.exports = {
   mode: 'universal',
 
   head: {
-    title: pkg.name,
+    title: 'SSR Blog',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Мой блог на nuxt' },
-      { name: 'format-detection', content: 'telephone=no' }
+      { hid: 'description', name: 'description', content: 'Блог, написанный с использованием server-side rendering' },
+      { name: 'format-detection', content: 'telephone=no' },
+      { hid: 'keywords', name: 'keywords', content: 'js, javascript,, ssr, blog'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -34,6 +35,14 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    ['nuxt-seo-module', {
+      robots: {},
+      sitemap: [{
+        baseUrl: 'https://127.0.0.1',
+        generate: true,
+        exclude: ['/admin/']
+      }]
+    }]
   ],
 
   workbox: {
@@ -43,7 +52,7 @@ module.exports = {
   axios: {},
 
   env: {
-    appName: 'SSR Blog'
+    appName: 'SSR Blog',
   },
 
   build: {

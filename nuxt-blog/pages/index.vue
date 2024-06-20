@@ -15,7 +15,11 @@ import AppPost from '@/components/main/Post.vue'
 export default {
   name: 'IndexPage',
   head: {
-    title: `Главная | ${process.env.appName}`
+    title: `Главная | ${process.env.appName}`,
+    meta: [
+      {hid: 'homepaged', name: 'description', content: 'Самый лучший js блог'},
+      {hid: 'homepagek', name: 'keywords', content: 'блог, js, nuxt'}
+    ]
   },
   async asyncData({store}) {
     const posts = await store.dispatch('post/fetch')
