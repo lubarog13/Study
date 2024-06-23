@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: 
+Sitemap: http://lubarog13-vivobookasuslaptopx513eaf513ea/sitemap.xml
