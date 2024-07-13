@@ -6,10 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(InventoryManager))] 
 [RequireComponent(typeof(WeatherManager))]
 [RequireComponent(typeof(ImagesManager))]
+[RequireComponent(typeof(MissionManager))]
 public class Managers : MonoBehaviour
 {
     public static PlayerManager Player {get; private set;}
     public static InventoryManager Inventory {get; private set;}
+    public static MissionManager Mission {get; private set;}
 
     public static WeatherManager Weather {get; private set;}
 
@@ -19,13 +21,16 @@ public class Managers : MonoBehaviour
     // Start is called before the first frame update
 
     void Awake() {
+        DontDestroyOnLoad(gameObject);
         Player = GetComponent<PlayerManager>();
         Inventory = GetComponent<InventoryManager>();
+        Mission = GetComponent<MissionManager>();
         Weather = GetComponent<WeatherManager>();
         Images = GetComponent<ImagesManager>();
         _startSequence = new List<IGameManager>();
         _startSequence.Add(Player);
         _startSequence.Add(Inventory);
+        _startSequence.Add(Mission);
         _startSequence.Add(Weather);
         _startSequence.Add(Images);
         StartCoroutine(StartupManagers());
@@ -50,12 +55,17 @@ public class Managers : MonoBehaviour
                 }
             }
 
-            if (numReady > lastReady)
+            if (numReady > lastReady) {
                 Debug.Log("Progress: " + numReady + "/" + numModules);
+                Messenger<int, int>.Broadcast(
+                    StartupEvent.MANAGERS_PROGRESS, numReady, numModules
+                );
+            }
 
             yield return null;
         }
         Debug.Log("All managers started up");
+        Messenger.Broadcast(StartupEvent.MANAGERS_STARTED);
     }
 }
 
