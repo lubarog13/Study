@@ -13,7 +13,7 @@ public class Managers : MonoBehaviour
     public static InventoryManager Inventory {get; private set;}
     public static MissionManager Mission {get; private set;}
 
-    public static WeatherManager Weather {get; private set;}
+    //public static WeatherManager Weather {get; private set;}
 
     public static ImagesManager Images {get; private set;}
 
@@ -25,13 +25,13 @@ public class Managers : MonoBehaviour
         Player = GetComponent<PlayerManager>();
         Inventory = GetComponent<InventoryManager>();
         Mission = GetComponent<MissionManager>();
-        Weather = GetComponent<WeatherManager>();
+        //Weather = GetComponent<WeatherManager>();
         Images = GetComponent<ImagesManager>();
         _startSequence = new List<IGameManager>();
         _startSequence.Add(Player);
         _startSequence.Add(Inventory);
         _startSequence.Add(Mission);
-        _startSequence.Add(Weather);
+        //_startSequence.Add(Weather);
         _startSequence.Add(Images);
         StartCoroutine(StartupManagers());
     }

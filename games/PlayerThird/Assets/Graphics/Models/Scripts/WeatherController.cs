@@ -20,7 +20,7 @@ public class WeatherController : MonoBehaviour
     }
 
     private void OnWeatherUpdated() {
-        SetOvercast(Managers.Weather.cloudValue);
+       // SetOvercast(Managers.Weather.cloudValue);
     }
 
     // Start is called before the first frame update

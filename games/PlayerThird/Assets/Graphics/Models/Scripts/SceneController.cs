@@ -10,10 +10,14 @@ public class SceneController : MonoBehaviour
 
      void Awake() {
         Messenger<float>.AddListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+        Messenger<int, int>.AddListener(StartupEvent.MANAGERS_PROGRESS, OnManagersProgress);
+        Messenger.AddListener(StartupEvent.MANAGERS_STARTED, OnManagersStarted);
     }
 
     void OnDestroy() {
         Messenger<float>.RemoveListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
+        Messenger<int, int>.RemoveListener(StartupEvent.MANAGERS_PROGRESS, OnManagersProgress);
+        Messenger.RemoveListener(StartupEvent.MANAGERS_STARTED, OnManagersStarted);
     }
 
      private void OnSpeedChanged(float value) {
@@ -24,6 +28,12 @@ public class SceneController : MonoBehaviour
     void Start()
     {
         
+    }
+
+    private void OnManagersProgress(int numReady, int numModules) {
+    }
+
+    private void OnManagersStarted() {
     }
 
     // Update is called once per frame
