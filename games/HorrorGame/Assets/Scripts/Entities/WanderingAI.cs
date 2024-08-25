@@ -2,22 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WanderingAI : MonoBehaviour
+public class WanderingAI : BasicAI
 {
-    public float speed = 3.0f;
-    public const float baseSpeed = 3.0f;
 
     public float obstacleRange = 5.0f;
 
     [SerializeField] private GameObject fireballPrefab;
     private GameObject _fireball;
-
-    private bool _alive;
-    // Start is called before the first frame update
-    void Start()
-    {
-        _alive = true;
-    }
 
     void Awake() {
         Messenger<float>.AddListener(GameEvent.SPEED_CHANGED, OnSpeedChanged);
@@ -56,10 +47,5 @@ public class WanderingAI : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void SetAlive(bool alive)
-    {
-        _alive = alive;
     }
 }
